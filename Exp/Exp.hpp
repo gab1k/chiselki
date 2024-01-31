@@ -4,11 +4,9 @@
 
 namespace ADAAI {
     template<typename F>
-    F Exp(F x) { // return value is e^x
+    constexpr F Exp(F x) { // return value is e^x
         static_assert(std::is_floating_point<F>::value, "Not a floating point number\n");
-
-        F y = x / Ln2<F>; // e^x = 2^{x/ln2)
-
+        F y = x / Ln2<F>; // e^x = 2^{x/ln2) = 2^y
         F y_int, y_float;
         y_float = std::modf(y, &y_int);
         if (y_int < INT32_MIN) {
@@ -26,10 +24,10 @@ namespace ADAAI {
         }
 
         F x1 = y_float * Ln2<F>; // e^x = 2^[x] * e^{{x}*Ln2}. x1 = {x}*Ln2
-        F f1 = 1; // f1 = e^x1 - считаем Тейлором
+        F eps = Eps<F> * 10.0; // error rate
 
-        F eps = Eps<F> * 10.0; // погрешность
-        // Start with n = 0
+        // Start Taylor with n = 1, because 1st summand = 1
+        F f1 = 1; // f1 = e^x1 - count by Taylor
         int n = 1;
         F x_n = x1; // x^n
         F fact_n = 1; // n!
@@ -39,7 +37,6 @@ namespace ADAAI {
             x_n *= x1;
             fact_n *= n;
         }
-        // хотим |y_float| < 0.5
         return std::ldexp(f1, int(y_int)); // f1 * 2^n
     }
 }
