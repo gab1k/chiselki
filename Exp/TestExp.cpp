@@ -1,6 +1,7 @@
 #include "Exp.hpp"
 
 int main(){
-    float f = ADAAI::Exp(2.0f);
-    std::cout << f << " " << std::exp(2);
+    float num = -3.0;
+    std::cout.precision(20);
+    std::cout << ADAAI::Exp(num) << " " << std::exp(num);
 }
