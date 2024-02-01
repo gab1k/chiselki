@@ -7,11 +7,11 @@ namespace ADAAI {
     constexpr inline F
     Ln2;
     template<>
-    constexpr inline float Ln2<float> = 1.0 / M_LOG2Ef;
+    inline float Ln2<float> = logf(2.0f);
     template<>
-    constexpr inline double Ln2<double> = 1.0 / M_LOG2E;
+    inline double Ln2<double> = log(2.0);
     template<>
-    constexpr inline long double Ln2<long double> = 1.0 / M_LOG2El;
+    inline long double Ln2<long double> = logl(2.0l);
 // ---------------------------------------
 
 
