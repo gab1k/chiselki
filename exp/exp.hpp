@@ -18,7 +18,7 @@ namespace adaai {
         y_float = std::modf(y, &y_int);
 
         if (y_int < INT32_MIN) {
-            return F(0.0);
+            return 0.0;
         } else if (y_int > INT32_MAX) {
             return INFINITY;
         }
@@ -36,12 +36,11 @@ namespace adaai {
         F x1 = y_float * C_LN_2<F>; // e^x = 2^[x] * e^{{x}*Ln2}. x1 = {x}*Ln2
         F eps = C_EPS<F>; // error rate
 
-        // Start Taylor with n = 1, because 1st summand = 1
         F f1 = 0.0; // f1 = e^x1 - count by Taylor
         F next = 1.0;
-        unsigned long long n = 0.0;
+        unsigned long long n = 0;
 
-        while (next >= eps) {
+        while (next * C_SQRT_2<F> >= eps) {
             f1 += next;
             next *= x1;
             next /= ++n;
