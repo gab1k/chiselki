@@ -1,3 +1,6 @@
+#ifndef CONST_HPP_
+#define CONST_HPP_
+
 #include <cmath>
 #include <cfloat>
 
@@ -45,3 +48,5 @@ namespace adaai {
     constexpr inline long double C_SQRT_2<long double> = M_SQRT1_2l;
     // --------------------------------------- define C_SQRT_2
 } // namespace adaai
+
+#endif // CONST_HPP_

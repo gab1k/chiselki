@@ -8,5 +8,6 @@ include_directories(common)
 include_directories(exp)
 add_executable(test-exp
         common/consts.hpp
+        common/doctest.h
         exp/exp.hpp
         exp/test_exp.cpp)

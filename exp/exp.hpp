@@ -1,3 +1,6 @@
+#ifndef EXP_HPP_
+#define EXP_HPP_
+
 #include "consts.hpp"
 #include <cstdint>
 #include <cmath>
@@ -48,3 +51,5 @@ namespace adaai {
     }
 
 } // namespace adaai
+
+#endif // EXP_HPP_
