@@ -13,6 +13,10 @@ namespace adaai {
         if (std::isnan(x)) {
             return x;
         }
+        // We can put long double instead of F in the intermediate
+        // calculations to achieve maximum accuracy, but in this case
+        // we may lose the speed of calculations
+
         F y = x / C_LN_2<F>;  // e^x = 2^(x/ln2) = 2^y
         F y_int, y_float;
         y_float = std::modf(y, &y_int);
