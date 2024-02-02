@@ -10,13 +10,13 @@ namespace adaai {
     constexpr inline F C_LN_2;
 
     template<>
-    inline float C_LN_2<float> = logf(2.0f);
+    constexpr inline float C_LN_2<float> = 1 / M_LOG2Ef;
 
     template<>
-    inline double C_LN_2<double> = log(2.0);
+    constexpr inline double C_LN_2<double> = 1 / M_LOG2E;
 
     template<>
-    inline long double C_LN_2<long double> = logl(2.0l);
+    constexpr inline long double C_LN_2<long double> = 1 / M_LOG2El;
     // --------------------------------------- define C_LN_2
 
     // --------------------------------------- define C_EPS
