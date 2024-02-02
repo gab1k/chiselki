@@ -1,8 +1,8 @@
 #ifndef CONST_HPP_
 #define CONST_HPP_
 
-#include <cmath>
 #include <cfloat>
+#include <cmath>
 
 namespace adaai {
     // --------------------------------------- define C_LN_2
