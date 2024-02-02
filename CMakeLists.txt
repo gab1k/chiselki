@@ -3,9 +3,10 @@ project(chiselki)
 
 set(CMAKE_CXX_STANDARD 20)
 
-include_directories(Exp)
+include_directories(common)
 
+include_directories(exp)
 add_executable(test-exp
-        Exp/Consts.hpp
-        Exp/Exp.hpp
-        Exp/TestExp.cpp)
+        common/consts.hpp
+        exp/exp.hpp
+        exp/test_exp.cpp)
