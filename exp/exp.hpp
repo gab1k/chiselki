@@ -21,11 +21,9 @@ namespace adaai {
             calculations to achieve maximum accuracy, but in this case
             we may lose the speed of calculations
         */
-
         if (std::isnan(x)) {
             return x;
         }
-
         F y = x / C_LN_2<F>;  // e^x = 2^(x/ln2) = 2^y
         F y_int, y_float;
         y_float = std::modf(y, &y_int);
@@ -33,18 +31,14 @@ namespace adaai {
         if (y_int < INT32_MIN) {
             return 0.0;
         }
-
         if (y_int > INT32_MAX) {
             return INFINITY;
         }
-
         if (std::abs(y_float) > 0.5) {
             y_int += (std::signbit(y_float) ? -1 : 1);
             y_float += (std::signbit(y_float) ? 1 : -1);
         }
-
         F x1 = y_float * C_LN_2<F>; // e^x = 2^[x] * e^{{x}*Ln2}. x1 = {x}*Ln2
-
         F f1 = 0.0; // want find e^x1
         if constexpr (M == MethodE::Taylor) {
             F next = 1.0;
@@ -55,13 +49,6 @@ namespace adaai {
                 next *= x1;
                 next /= ++n;
             }
-//            while (std::abs(next * C_SQRT_2<F>) >= C_EPS<F>) {
-//                f1 += next;
-//                next *= x1;
-//                next /= ++n;
-//            }
-
-            std::cout << n << "\n";
         } else if constexpr (M == MethodE::Pade) {
             std::vector<F> members = {30240, 15120, 3360, 420, 30, 1}; // for x^0, x^1, ..., x^4.
             F x_st = 1;

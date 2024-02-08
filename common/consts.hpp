@@ -10,13 +10,13 @@ namespace adaai {
     constexpr inline F C_LN_2; // should be constexpr
 
     template<>
-    inline float C_LN_2<float> = logf(2.0f);
+    constexpr inline float C_LN_2<float> = 1 / M_LOG2Ef;
 
     template<>
-    inline double C_LN_2<double> = log(2.0);
+    constexpr inline double C_LN_2<double> = 1 / M_LOG2E;
 
     template<>
-    inline long double C_LN_2<long double> = logl(2.0l);
+    constexpr inline long double C_LN_2<long double> = 1 / M_LOG2El;
     // --------------------------------------- define C_LN_2
 
     // --------------------------------------- define C_EPS
@@ -50,15 +50,13 @@ namespace adaai {
 
     template<typename F>
     constexpr inline unsigned MKExpTaylorOrder() {
-        return 100;
-        F ln2_n = C_SQRT_2<F>;
+        F ln2_n_sqrt2 = C_SQRT_2<F>;
         F n_fact = 1;
-        unsigned n;
-        for (n = 0; n < 1000; n++) {
-            if (ln2_n / (n_fact) <= C_EPS<F>) {
+        for (unsigned n = 0; n < 1000; n++) {
+            if (ln2_n_sqrt2 / n_fact < C_EPS<F>) {
                 return n - 1;
             }
-            ln2_n *= C_LN_2<F>;
+            ln2_n_sqrt2 *= C_LN_2<F>;
             n_fact *= n + 1;
         }
         return 1000;
