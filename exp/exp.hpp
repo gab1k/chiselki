@@ -12,7 +12,7 @@ enum class MethodE : int {
 
 namespace adaai {
 
-    template<MethodE M = MethodE::Pade, typename F>
+    template<typename F, MethodE M = MethodE::Pade>
     constexpr F exp(F x) {  // return e^x
         static_assert(std::is_floating_point<F>::value, "Not a floating point number!");
 

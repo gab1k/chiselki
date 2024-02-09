@@ -1,24 +1,37 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "doctest.h"
 
 #include "consts.hpp"
+#include "doctest.h"
 #include "exp.hpp"
+
+#include <random>
 #include <cmath>
 
-template<typename F>
+
+template<typename F, MethodE M = MethodE::Taylor>
 void checkExp(F value, F eps) {
-    const F current = adaai::exp<MethodE::Pade, F>(value);
     const F expected = std::exp(value);
-//    std::cout << current - expected << "\n";
+//    std::cout << get_eps<F>(expected) << "\n";
+    const F current = adaai::exp<F, M>(value);
     CHECK((std::abs(current - expected) <= eps ||
            std::isinf(expected) && std::isinf(current) ||
            std::isnan(expected) && std::isnan(current)));
 }
 
+template<typename F, MethodE M = MethodE::Taylor>
+void stress_test_exp(unsigned n, F from, F to) {
+    srand(time(nullptr));
+    std::cout.precision(100);
+    for (unsigned i = 0; i < n; ++i) {
+        F x = (F) rand() / RAND_MAX * (to - from) + from;
+        checkExp<F, M>(x, adaai::C_EPS<F> * 4);
+    }
+}
+
 template<typename F>
 void testBasicWithTemplate() {
     F eps = adaai::C_EPS<F>;
-
+    stress_test_exp<F, MethodE::Taylor>(100000, -0.34, 0.34);
     SUBCASE("Zero") {
         checkExp<F>(0, eps);
     }
@@ -93,3 +106,7 @@ TEST_CASE("Long double") {
         checkExp<long double>(42.032026, eps);
     }
 }
+
+//TEST_CASE("Check func") {
+//    stress_test_exp<long double>(10, 2, 10);
+//}
