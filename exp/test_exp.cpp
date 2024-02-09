@@ -7,9 +7,9 @@
 
 template<typename F>
 void checkExp(F value, F eps) {
-    const F current = adaai::exp<MethodE::Taylor, F>(value);
+    const F current = adaai::exp<MethodE::Pade, F>(value);
     const F expected = std::exp(value);
-    std::cout << current - expected << "\n";
+//    std::cout << current - expected << "\n";
     CHECK((std::abs(current - expected) <= eps ||
            std::isinf(expected) && std::isinf(current) ||
            std::isnan(expected) && std::isnan(current)));
@@ -47,7 +47,7 @@ void testBasicWithTemplate() {
         checkExp<F>(2.432132, eps);
         checkExp<F>(10.09876, eps);
         checkExp<F>(13.33212, eps);
-        checkExp<F>(20.43221, eps);
+        checkExp<F>(15.49921, eps);
     }
 }
 

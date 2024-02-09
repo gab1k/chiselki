@@ -48,18 +48,26 @@ namespace adaai {
     constexpr inline long double C_SQRT_2<long double> = M_SQRT1_2l;
     // --------------------------------------- define C_SQRT_2
 
-    template<typename F>
-    constexpr inline unsigned MKExpTaylorOrder() {
-        F ln2_n_sqrt2 = C_SQRT_2<F>;
-        F n_fact = 1;
-        for (unsigned n = 0; n < 1000; n++) {
-            if (ln2_n_sqrt2 / n_fact < C_EPS<F>) {
-                return n - 1;
+    namespace exp_consts {
+
+        template<typename F>
+        constexpr inline unsigned MKExpTaylorOrder() {
+            F ln2_n_sqrt2 = C_SQRT_2<F>;
+            F n_fact = 1;
+            for (unsigned n = 0; n < 1000; n++) {
+                if (ln2_n_sqrt2 / n_fact < C_EPS<F>) {
+                    return n - 1;
+                }
+                ln2_n_sqrt2 *= C_LN_2<F>;
+                n_fact *= n + 1;
             }
-            ln2_n_sqrt2 *= C_LN_2<F>;
-            n_fact *= n + 1;
+            return 1000; // static_assert(false)
         }
-        return 1000;
+
+//        template<typename F>
+//        constexpr inline std::vector<F> members_Pade{
+//
+//        };
     }
 } // namespace adaai
 
