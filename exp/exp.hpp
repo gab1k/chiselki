@@ -43,7 +43,7 @@ namespace adaai {
         if constexpr (M == MethodE::Taylor) {
             F next = 1.0;
             unsigned long long n = 0;
-            unsigned precl_n = exp_consts::MKExpTaylorOrder<F>();
+            constexpr unsigned precl_n = exp_consts::MKExpTaylorOrder<F>();
             for (unsigned i = 0; i < precl_n; ++i) {
                 f1 += next;
                 next *= x1;
@@ -51,9 +51,9 @@ namespace adaai {
             }
         } else if constexpr (M == MethodE::Pade) {
 //            std::vector<F> members = {30240, 15120, 3360, 420, 30, 1}; // for x^0, x^1, ..., x^5.
-//            std::vector<F> members = {17643225600.0, 8821612800.0, 2075673600.0, 302702400.0, 30270240.0, 2162160.0, 110880.0, 3960.0,
-//                                      90.0, 1.0}; // to x^9
-            std::vector<F> members = {17297280, 8648640, 1995840, 277200, 25200, 1512, 56, 1}; // to x^7
+//            std::vector<F> members = {17297280, 8648640, 1995840, 277200, 25200, 1512, 56, 1}; // to x^7
+            std::vector<F> members = {17643225600.0, 8821612800.0, 2075673600.0, 302702400.0, 30270240.0, 2162160.0, 110880.0, 3960.0,
+                                      90.0, 1.0}; // to x^9
             F x_st = 1;
             F divisible = 0; // делимое
             F divisor = 0; // делитель

@@ -55,7 +55,7 @@ namespace adaai {
             F ln2_n_sqrt2 = C_SQRT_2<F>;
             F n_fact = 1;
             for (unsigned n = 0; n < 1000; n++) {
-                if (ln2_n_sqrt2 / n_fact < C_EPS<F>) {
+                if (ln2_n_sqrt2 < C_EPS<F> * n_fact) {
                     return n - 1;
                 }
                 ln2_n_sqrt2 *= C_LN_2<F>;
@@ -64,10 +64,6 @@ namespace adaai {
             return 1000; // static_assert(false)
         }
 
-//        template<typename F>
-//        constexpr inline std::vector<F> members_Pade{
-//
-//        };
     }
 } // namespace adaai
 
