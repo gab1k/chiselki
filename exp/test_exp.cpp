@@ -134,13 +134,15 @@ TEST_CASE("Long double") {
 
 template<typename F, MethodE M = MethodE::Taylor>
 void log_info(std::ofstream &ofs, F min_value, F max_value) {
-    std::pair<F, F> max_errs = stress_test_exp<F, M>(10000, min_value, max_value);
-    std::pair<F, F> errs = stress_test_exp<F, M>(10000, -max_value, -min_value);
+    std::pair<F, F> errs_p = stress_test_exp<F, M>(10000, min_value, max_value);
+    std::pair<F, F> errs_m = stress_test_exp<F, M>(10000, -max_value, -min_value);
 
-    max_errs = {std::max(errs.first, max_errs.first), std::max(errs.second, max_errs.second)};
+    std::pair<F, F> max_errs = {std::max(errs_m.first, errs_p.first), std::max(errs_m.second, errs_p.second)};
     ofs << "Case: " << min_value << " < |x| < " << max_value << "\n";
     ofs << "Absolute error = " << max_errs.first << "; It is " << max_errs.first / adaai::C_EPS<F> << " * eps\n";
-    ofs << "Relative error = " << max_errs.second << "; It is " << max_errs.second / adaai::C_EPS<F> << " * eps\n\n";
+    ofs << "Relative error = " << max_errs.second << "; It is " << max_errs.second / adaai::C_EPS<F> << " * eps\n";
+    F our_err = std::max(errs_p.second, errs_m.first);
+    ofs << "Our error is = " << our_err << "; It is " << our_err / adaai::C_EPS<F> << " * eps\n\n";
 
 }
 
