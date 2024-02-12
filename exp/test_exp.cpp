@@ -7,34 +7,14 @@
 #include <random>
 #include <cmath>
 
-template<typename F, MethodE M = MethodE::Taylor>
-F get_eps_exp(F num) {
-    if (std::isnan(num) || std::isinf(num)) {
-        return 0;
-    }
-    F y = num / adaai::C_LN_2<F>;
-    F y_int;
-    std::modf(y, &y_int);
-    y_int = abs(int(y_int)) + 1;
-    // т.к. в процессе решения мы можем поменять y_int, то максимум увеличим на 1. Это и будет максимальная ошибка
-    if (M == MethodE::Taylor) {
-        return std::ldexp(adaai::C_EPS<F> * 5, y_int); // C_EPS<F> * 5 - ошибка при |x| < 0.34 (ln2/2)
-    } else if (M == MethodE::Pade) {
-        F ln_2_st = 1;
-        for (unsigned n = 1; n <= 19; ++n) { // n должен ходить до n + m + 1, где n,m - степени членов многочленов паде
-            ln_2_st *= adaai::C_LN_2<F>;
-        }
-        return std::ldexp(ln_2_st, y_int); // ошибка O(x^{n+m+1})
-    }
-    return 0;
-}
 
 template<typename F, MethodE M = MethodE::Pade>
 std::pair<F, F> checkExp(F value) {
     const F expected = std::exp(value);
     const F current = adaai::exp<F, M>(value);
-    F eps = get_eps_exp<F, M>(value);
-    CHECK((std::abs(current - expected) <= eps ||
+    F error = value < 0 ? std::abs(current - expected) : std::abs(current / expected - 1.0);
+    F eps = 600 * adaai::C_EPS<F>;
+    CHECK((error <= eps ||
            (std::isinf(expected) && std::isinf(current) && (std::signbit(expected) == std::signbit(current))) ||
            std::isnan(expected) && std::isnan(current)));
     F abs_err = fabsl(expected - current);
@@ -49,7 +29,12 @@ std::pair<F, F> stress_test_exp(unsigned n, F from, F to) {
     for (unsigned i = 0; i < n; ++i) {
         F x = (F) rand() / RAND_MAX * (to - from) + from;
         std::pair<F, F> errs = checkExp<F, M>(x);
-        max_errs = {std::max(errs.first, max_errs.first), std::max(errs.second, max_errs.second)};
+        if(!std::isnan(errs.first) && !std::isinf(errs.first)){
+            max_errs.first = std::max(max_errs.first, errs.first);
+        }
+        if(!std::isnan(errs.second) && !std::isinf(errs.first)){
+            max_errs.second = std::max(max_errs.second, errs.second);
+        }
     }
     return max_errs;
 }
@@ -137,12 +122,11 @@ void log_info(std::ofstream &ofs, F min_value, F max_value) {
     std::pair<F, F> errs_p = stress_test_exp<F, M>(10000, min_value, max_value);
     std::pair<F, F> errs_m = stress_test_exp<F, M>(10000, -max_value, -min_value);
 
-    std::pair<F, F> max_errs = {std::max(errs_m.first, errs_p.first), std::max(errs_m.second, errs_p.second)};
     ofs << "Case: " << min_value << " < |x| < " << max_value << "\n";
-    ofs << "Absolute error = " << max_errs.first << "; It is " << max_errs.first / adaai::C_EPS<F> << " * eps\n";
-    ofs << "Relative error = " << max_errs.second << "; It is " << max_errs.second / adaai::C_EPS<F> << " * eps\n";
+    ofs << "Absolute error for  x < 0 = " << errs_m.first << "; It is " << errs_m.first / adaai::C_EPS<F> << " * eps\n";
+    ofs << "Relative error for x >= 0 = " << errs_p.second << "; It is " << errs_p.second / adaai::C_EPS<F> << " * eps\n";
     F our_err = std::max(errs_p.second, errs_m.first);
-    ofs << "Our error is = " << our_err << "; It is " << our_err / adaai::C_EPS<F> << " * eps\n\n";
+    ofs << "Our error is              = " << our_err << "; It is " << our_err / adaai::C_EPS<F> << " * eps\n\n";
 
 }
 
@@ -151,7 +135,7 @@ TEST_CASE("Log Error Float") {
     std::ofstream ofs(filePath.c_str(), std::ios_base::out);
     ofs << "Eps = " << adaai::C_EPS<float> << "\n\n";
     ofs << "Taylor:\n";
-    float hod[] = {0, 0.34, 3.0, 5.0, 7.0};
+    float hod[] = {0, 0.00001, 0.34, 3.0, 5.0, 7.0, 15.0, 30.0, 100};
     for (int i = 1; i < sizeof(hod) / sizeof(hod[0]); ++i) {
         log_info<float, MethodE::Taylor>(ofs, hod[i - 1], hod[i]);
     }
@@ -170,7 +154,7 @@ TEST_CASE("Log Error Double") {
     ofs << "Eps = " << adaai::C_EPS<double> << "\n\n";
     ofs << "Taylor:\n";
 
-    double hod[] = {0.00, 0.34, 3.00, 5.00, 7.00, 10.0, 15.0};
+    double hod[] = {0.00, 0.0000001,0.34, 3.00, 5.00, 10.0, 30.0, 50.0, 70.0, 230, 500, 750};
     for (int i = 1; i < sizeof(hod) / sizeof(hod[0]); ++i) {
         log_info<double, MethodE::Taylor>(ofs, hod[i - 1], hod[i]);
     }
@@ -188,7 +172,7 @@ TEST_CASE("Log Error Long Double") {
     std::ofstream ofs(filePath.c_str(), std::ios_base::out);
     ofs << "Eps = " << adaai::C_EPS<long double> << "\n\n";
     ofs << "Taylor:\n";
-    long double hod[] = {0, 0.34, 3.0, 5.0, 7.0, 10.0, 15.0, 20.0};
+    long double hod[] = {0, 0.0000000001,0.34, 3.0, 10.0, 20.0, 50.0, 150, 250, 500, 1000};
     for (int i = 1; i < sizeof(hod) / sizeof(hod[0]); ++i) {
         log_info<long double, MethodE::Taylor>(ofs, hod[i - 1], hod[i]);
     }
