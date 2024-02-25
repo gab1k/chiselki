@@ -4,10 +4,12 @@
 #include "consts.hpp"
 #include <cmath>
 #include <cstdint>
+#include <gsl/gsl_chebyshev.h>
 
 enum class MethodE : int {
     Taylor,
-    Pade
+    Pade,
+    Chebyshev
 };
 
 namespace adaai {
@@ -68,6 +70,12 @@ namespace adaai {
                 x_st *= x1;
             }
             f1 = divisible / divisor;
+        } else if constexpr (M == MethodE::Chebyshev) {
+            std::vector<F> c = {};
+            gsl_cheb_series *cs = gsl_cheb_alloc(c.size());
+            cs->c = c;
+            f1 = gsl_cheb_eval(cs, x1);
+            gsl_cheb_free(cs);
         }
 
         return std::ldexp(f1, int(y_int)); // f1 * 2^n
