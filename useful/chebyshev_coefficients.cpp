@@ -7,13 +7,21 @@ void solve(int N) {
         return;
     }
 
-    for (int i = 0; i < N - 1; ++i) {
-        a_data[N * i + i] = -1;
-        for (int j = i + 1; j < N; ++j) {
-            if (j % 2 == 0 && i % 2 != 0 || j % 2 != 0 && i % 2 == 0) {
-                a_data[N * i + j] = 2 * j;
-            } else if (i % 2 != 0 && j == 0) {
-                a_data[N * i + j] = j;
+    for (int k = 0; k < N - 1; ++k) {
+        a_data[N * k + k] = -1;
+        for (int n = k + 1; n < N; ++n) {
+            if (n % 2 == 0) {
+                if (k == 1) {
+                    a_data[N * k + n] = n;
+                } else if (k % 2 == 1) {
+                    a_data[N * k + n] = 2 * n;
+                }
+            } else {
+                if (k == 0) {
+                    a_data[N * k + n] = n;
+                } else if (k % 2 == 0) {
+                    a_data[N * k + n] = 2 * n;
+                }
             }
         }
     }
