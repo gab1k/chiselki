@@ -11,9 +11,7 @@ void solve(int N) {
         a_data[N * k + k] = -1;
         for (int n = k + 1; n < N; ++n) {
             if (n % 2 == 0) {
-                if (k == 1) {
-                    a_data[N * k + n] = n;
-                } else if (k % 2 == 1) {
+                if (k % 2 == 1) {
                     a_data[N * k + n] = 2 * n;
                 }
             } else {
@@ -52,5 +50,4 @@ void solve(int N) {
 
 int main() {
     solve(15);
-    return 0;
 }
