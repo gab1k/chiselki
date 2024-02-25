@@ -14,7 +14,8 @@ add_executable(test-exp
 
 include_directories(useful)
 add_executable(pre-calculation-chebyshev-coefficients
-            useful/chebyshev_coefficients.cpp)
+        useful/chebyshev_coefficients.cpp)
 
 find_package(GSL REQUIRED)
 target_link_libraries(pre-calculation-chebyshev-coefficients GSL::gsl)
+target_link_libraries(test-exp GSL::gsl)

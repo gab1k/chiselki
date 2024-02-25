@@ -39,42 +39,42 @@ std::pair<F, F> stress_test_exp(unsigned n, F from, F to) {
     return max_errs;
 }
 
-template<typename F>
+template<typename F, MethodE M = MethodE::Taylor>
 void testBasicWithTemplate() {
 
     SUBCASE("Close to ln2/2") {
-        checkExp<F>(-0.3465735902);
-        checkExp<F>(0.3465735902);
+        checkExp<F, M>(-0.3465735902);
+        checkExp<F, M>(0.3465735902);
     }
 
     SUBCASE("Zero") {
-        checkExp<F>(0);
+        checkExp<F, M>(0);
     }
 
     SUBCASE("Inf") {
-        checkExp<F>(12345.1234);
-        checkExp<F>(INFINITY);
-        checkExp<F>(-INFINITY);
+        checkExp<F, M>(12345.1234);
+        checkExp<F, M>(INFINITY);
+        checkExp<F, M>(-INFINITY);
     }
 
     SUBCASE("NaN") {
-        checkExp<F>(NAN);
+        checkExp<F, M>(NAN);
     }
 
     SUBCASE("Small") {
-        checkExp<F>(0.1234321);
-        checkExp<F>(0.0043212);
-        checkExp<F>(0.0000392);
-        checkExp<F>(0.0000087);
-        checkExp<F>(0.0000007);
+        checkExp<F, M>(0.1234321);
+        checkExp<F, M>(0.0043212);
+        checkExp<F, M>(0.0000392);
+        checkExp<F, M>(0.0000087);
+        checkExp<F, M>(0.0000007);
     }
 
     SUBCASE("Large") {
-        checkExp<F>(1.123423);
-        checkExp<F>(2.432132);
-        checkExp<F>(10.09876);
-        checkExp<F>(13.33212);
-        checkExp<F>(15.49921);
+        checkExp<F, M>(1.123423);
+        checkExp<F, M>(2.432132);
+        checkExp<F, M>(10.09876);
+        checkExp<F, M>(13.33212);
+        checkExp<F, M>(15.49921);
     }
 }
 
@@ -182,4 +182,10 @@ TEST_CASE("Log Error Long Double") {
         log_info<long double, MethodE::Pade>(ofs, hod[i - 1], hod[i]);
     }
     ofs.close();
+}
+
+TEST_CASE("Chebysev aprox"){
+    testBasicWithTemplate<float, MethodE::Chebyshev>();
+    testBasicWithTemplate<double, MethodE::Chebyshev>();
+    testBasicWithTemplate<long double, MethodE::Chebyshev>();
 }

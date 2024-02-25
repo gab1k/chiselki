@@ -4,6 +4,8 @@
 #include "consts.hpp"
 #include <cmath>
 #include <cstdint>
+
+#include <gsl/gsl_math.h>
 #include <gsl/gsl_chebyshev.h>
 
 enum class MethodE : int {
@@ -71,8 +73,27 @@ namespace adaai {
             }
             f1 = divisible / divisor;
         } else if constexpr (M == MethodE::Chebyshev) {
-            std::vector<F> c = {};
-            gsl_cheb_series *cs = gsl_cheb_alloc(c.size());
+            int N = 14;
+            auto *c = (double *)calloc(N + 1, sizeof(double));
+            double d[] = {1.61186949110557,
+                          1.2996917014510012,
+                          0.62435557930913788,
+                          0.10196108566545124,
+                          0.012589065316430418,
+                          0.0012485631340078945,
+                          0.00010343397635147418,
+                          7.3554177902041539e-06,
+                          4.5812728861601064e-07,
+                          2.5381172347981936e-08,
+                          1.2661863523359072e-09,
+                          5.7445301263787905e-11,
+                          2.3897245325735763e-12,
+                          9.1912482022060619e-14,
+                          3.2825886436450219e-15};
+            for(int i = 0; i < N + 1; i ++){
+                c[i] = d[i];
+            }
+            gsl_cheb_series *cs = gsl_cheb_alloc(N);
             cs->c = c;
             f1 = gsl_cheb_eval(cs, x1);
             gsl_cheb_free(cs);
