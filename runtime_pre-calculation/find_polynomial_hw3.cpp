@@ -7,9 +7,17 @@ std::vector<int> get_c(int N) {
     for (int n = 0; n < N + 1; n++) {
         for (int k = 0; k < N + 1; k++) {
             if (n & 1) { // n = odd
-                a[n][k] = (k & 1) * (k != 0 ? 2 * n : n);
+                if (k & 1) { // k = odd
+                    a[n][k] = 0;
+                } else if (k == 0) {
+                    a[n][k] = n;
+                } else {
+                    a[n][k] = 2 * n;
+                }
             } else {
-                a[n][k] = (1 - k & 1) * (k != 1 ? 2 * n : n);
+                if (k & 1) {
+                    a[n][k] = 2 * n;
+                }
             }
         }
     }
