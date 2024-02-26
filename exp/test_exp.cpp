@@ -148,6 +148,11 @@ TEST_CASE("Log Error Float") {
         log_info<float, MethodE::Pade>(ofs, hod[i - 1], hod[i]);
     }
 
+    ofs << "\n\nChebyshev:\n";
+    for (int i = 1; i < sizeof(hod) / sizeof(hod[0]); ++i) {
+        log_info<float, MethodE::Chebyshev>(ofs, hod[i - 1], hod[i]);
+    }
+
     ofs.close();
 }
 
@@ -167,6 +172,11 @@ TEST_CASE("Log Error Double") {
         log_info<double, MethodE::Pade>(ofs, hod[i - 1], hod[i]);
     }
 
+    ofs << "\n\nChebyshev:\n";
+    for (int i = 1; i < sizeof(hod) / sizeof(hod[0]); ++i) {
+        log_info<double, MethodE::Chebyshev>(ofs, hod[i - 1], hod[i]);
+    }
+
     ofs.close();
 }
 
@@ -183,6 +193,11 @@ TEST_CASE("Log Error Long Double") {
     ofs << "\n\nPade:\n";
     for (int i = 1; i < sizeof(hod) / sizeof(hod[0]); ++i) {
         log_info<long double, MethodE::Pade>(ofs, hod[i - 1], hod[i]);
+    }
+
+    ofs << "\n\nChebyshev:\n";
+    for (int i = 1; i < sizeof(hod) / sizeof(hod[0]); ++i) {
+        log_info<long double, MethodE::Chebyshev>(ofs, hod[i - 1], hod[i]);
     }
     ofs.close();
 }
