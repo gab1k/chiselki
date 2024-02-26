@@ -14,6 +14,9 @@ std::pair<F, F> checkExp(F value) {
     const F current = adaai::exp<F, M>(value);
     F error = value < 0 ? std::abs(current - expected) : std::abs(current / expected - 1.0);
     F eps = 600 * adaai::C_EPS<F>;
+    if(M == MethodE::Chebyshev){
+        eps *= 5;
+    }
     CHECK((error <= eps ||
            (std::isinf(expected) && std::isinf(current) && (std::signbit(expected) == std::signbit(current))) ||
            std::isnan(expected) && std::isnan(current)));

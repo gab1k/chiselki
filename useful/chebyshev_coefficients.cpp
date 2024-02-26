@@ -10,21 +10,16 @@ void solve(int N) {
     for (int k = 0; k < N - 1; ++k) {
         a_data[N * k + k] = -1;
         for (int n = k + 1; n < N; ++n) {
-            if (n % 2 == 0) {
-                if (k == 1) {
-                    a_data[N * k + n] = n;
-                } else if (k % 2 == 1) {
-                    a_data[N * k + n] = 2 * n;
-                }
-            } else {
+            if ((n & 1) != (k & 1)) {
                 if (k == 0) {
-                    a_data[N * k + n] = n;
-                } else if (k % 2 == 0) {
+                    a_data[N * k + n] =  n;
+                } else
                     a_data[N * k + n] = 2 * n;
-                }
             }
+
         }
     }
+
     for (int i = 0; i < N; i++) {
         double val = 0;
         if (i % 4 == 0) val = 1;
@@ -42,7 +37,7 @@ void solve(int N) {
     gsl_linalg_LU_decomp(&m.matrix, p, &s);
     gsl_linalg_LU_solve(&m.matrix, p, &b.vector, x);
 
-    gsl_vector_fprintf(stdout, x, "%.17g");
+    gsl_vector_fprintf(stdout, x, "%.17g,");
 
     gsl_permutation_free(p);
     gsl_vector_free(x);
@@ -51,6 +46,6 @@ void solve(int N) {
 }
 
 int main() {
-    solve(15);
+    solve(21);
     return 0;
 }
