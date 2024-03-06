@@ -8,10 +8,12 @@
 
 #define REAL(z, i) ((z)[2*(i)])
 #define IMAG(z, i) ((z)[2*(i)+1])
+
 namespace adaai {
     template<typename F>
-    constexpr F exp_fft() {
+    constexpr F exp_fft(std::ofstream &ofs) {
         int N = 32;
+        ofs << "Start testing with N = " << 32 << "\n\n";
         double a[] = {
                 14.089543728627603 / 2,
                 0,
@@ -80,11 +82,11 @@ namespace adaai {
         };
 
         gsl_fft_complex_radix2_forward(a, 1, N);
-
+//        std::cout.precision(17);
         for (int i = 0; i < N; i += 2) {
             F xi = (Pi<F> * i) / N;
-            std::cout << "for i = " << i << " FFT value is: " << REAL(a, i / 2) << " expected: " << exp(xi) << "\n";
-            std::cout << "absolute error is: " << abs(exp(xi) - REAL(a, i / 2)) << "\n\n";
+            ofs << "for i = " << i << " FFT value is: " << REAL(a, i / 2) << " expected: " << exp(xi) << "\n";
+            ofs << "absolute error is: " << abs(exp(xi) - REAL(a, i / 2)) << "\n\n";
         }
         return 0;
     }

@@ -209,8 +209,13 @@ TEST_CASE("Chebysev aprox") {
 }
 
 TEST_CASE("FFT") {
-    adaai::exp_fft<float>();
-    adaai::exp_fft<double>();
-    adaai::exp_fft<long double>();
-
+    std::string filePath = "../exp/fft_logs.txt";
+    std::ofstream ofs(filePath.c_str(), std::ios_base::out);
+    ofs << std::setprecision(10) << "Testing float:\n";
+    adaai::exp_fft<float>(ofs);
+    ofs << "\n\nTesting double:\n";
+    adaai::exp_fft<double>(ofs);
+    ofs << "\n\nTesting long double:\n";
+    adaai::exp_fft<long double>(ofs);
+    ofs.close();
 }
