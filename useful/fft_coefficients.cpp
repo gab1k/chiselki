@@ -26,7 +26,7 @@ std::vector<long double> solve(unsigned N) {
         ans[k] = 0;
         for (unsigned i = 1; i <= N + 1; i++) {
             double x_i = cos(((((double) (i * 2 - 1)) / ((double) (2 * N + 2))) * adaai::Pi<double>));
-            ans[k] += std::exp(acos(x_i)) * find_pol_in_x(pols.get_polynomial(k), x_i);
+            ans[k] += (long double) std::exp(acos(x_i)) * find_pol_in_x(pols.get_polynomial(k), x_i);
         }
         ans[k] = (ans[k] * 2) / (N + 1);
     }
@@ -34,10 +34,10 @@ std::vector<long double> solve(unsigned N) {
 }
 
 int main() {
-    std::vector<long double> a = solve(20);
+    std::vector<long double> a = solve(31);
     std::cout.precision(17);
     for (long double a_k: a) {
-        std::cout << a_k << ",\n";
+        std::cout << a_k << ",\n0,\n";
     }
     return 0;
 }

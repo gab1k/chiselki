@@ -7,8 +7,6 @@
 #include <random>
 #include <cmath>
 
-#include "test.hpp"
-
 template<typename F, MethodE M = MethodE::Pade>
 std::pair<F, F> checkExp(F value) {
     const F expected = std::exp(value);
@@ -211,5 +209,8 @@ TEST_CASE("Chebysev aprox") {
 }
 
 TEST_CASE("FFT") {
-    run();
+    adaai::exp_fft<float>();
+    adaai::exp_fft<double>();
+    adaai::exp_fft<long double>();
+
 }
