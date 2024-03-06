@@ -3,10 +3,11 @@
 #include "consts.hpp"
 #include "doctest.h"
 #include "exp.hpp"
-
+#include "fft.hpp"
 #include <random>
 #include <cmath>
 
+#include "test.hpp"
 
 template<typename F, MethodE M = MethodE::Pade>
 std::pair<F, F> checkExp(F value) {
@@ -14,7 +15,7 @@ std::pair<F, F> checkExp(F value) {
     const F current = adaai::exp<F, M>(value);
     F error = value < 0 ? std::abs(current - expected) : std::abs(current / expected - 1.0);
     F eps = 600 * adaai::C_EPS<F>;
-    if(M == MethodE::Chebyshev){
+    if (M == MethodE::Chebyshev) {
         eps *= 5;
     }
     CHECK((error <= eps ||
@@ -32,10 +33,10 @@ std::pair<F, F> stress_test_exp(unsigned n, F from, F to) {
     for (unsigned i = 0; i < n; ++i) {
         F x = (F) rand() / RAND_MAX * (to - from) + from;
         std::pair<F, F> errs = checkExp<F, M>(x);
-        if(!std::isnan(errs.first) && !std::isinf(errs.first)){
+        if (!std::isnan(errs.first) && !std::isinf(errs.first)) {
             max_errs.first = std::max(max_errs.first, errs.first);
         }
-        if(!std::isnan(errs.second) && !std::isinf(errs.first)){
+        if (!std::isnan(errs.second) && !std::isinf(errs.first)) {
             max_errs.second = std::max(max_errs.second, errs.second);
         }
     }
@@ -127,7 +128,8 @@ void log_info(std::ofstream &ofs, F min_value, F max_value) {
 
     ofs << "Case: " << min_value << " < |x| < " << max_value << "\n";
     ofs << "Absolute error for  x < 0 = " << errs_m.first << "; It is " << errs_m.first / adaai::C_EPS<F> << " * eps\n";
-    ofs << "Relative error for x >= 0 = " << errs_p.second << "; It is " << errs_p.second / adaai::C_EPS<F> << " * eps\n";
+    ofs << "Relative error for x >= 0 = " << errs_p.second << "; It is " << errs_p.second / adaai::C_EPS<F>
+        << " * eps\n";
     F our_err = std::max(errs_p.second, errs_m.first);
     ofs << "Our error is              = " << our_err << "; It is " << our_err / adaai::C_EPS<F> << " * eps\n\n";
 
@@ -162,7 +164,7 @@ TEST_CASE("Log Error Double") {
     ofs << "Eps = " << adaai::C_EPS<double> << "\n\n";
     ofs << "Taylor:\n";
 
-    double hod[] = {0.00, 0.0000001,0.34, 3.00, 5.00, 10.0, 30.0, 50.0, 70.0, 230, 500, 750};
+    double hod[] = {0.00, 0.0000001, 0.34, 3.00, 5.00, 10.0, 30.0, 50.0, 70.0, 230, 500, 750};
     for (int i = 1; i < sizeof(hod) / sizeof(hod[0]); ++i) {
         log_info<double, MethodE::Taylor>(ofs, hod[i - 1], hod[i]);
     }
@@ -185,7 +187,7 @@ TEST_CASE("Log Error Long Double") {
     std::ofstream ofs(filePath.c_str(), std::ios_base::out);
     ofs << "Eps = " << adaai::C_EPS<long double> << "\n\n";
     ofs << "Taylor:\n";
-    long double hod[] = {0, 0.0000000001,0.34, 3.0, 10.0, 20.0, 50.0, 150, 250, 500, 1000};
+    long double hod[] = {0, 0.0000000001, 0.34, 3.0, 10.0, 20.0, 50.0, 150, 250, 500, 1000};
     for (int i = 1; i < sizeof(hod) / sizeof(hod[0]); ++i) {
         log_info<long double, MethodE::Taylor>(ofs, hod[i - 1], hod[i]);
     }
@@ -202,8 +204,12 @@ TEST_CASE("Log Error Long Double") {
     ofs.close();
 }
 
-TEST_CASE("Chebysev aprox"){
+TEST_CASE("Chebysev aprox") {
     testBasicWithTemplate<float, MethodE::Chebyshev>();
     testBasicWithTemplate<double, MethodE::Chebyshev>();
     testBasicWithTemplate<long double, MethodE::Chebyshev>();
+}
+
+TEST_CASE("FFT") {
+    run();
 }

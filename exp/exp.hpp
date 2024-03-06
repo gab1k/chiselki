@@ -1,6 +1,7 @@
 #ifndef EXP_HPP_
 #define EXP_HPP_
 
+#include "fft.hpp"
 #include "consts.hpp"
 #include <cmath>
 #include <cstdint>
@@ -11,7 +12,8 @@
 enum class MethodE : int {
     Taylor,
     Pade,
-    Chebyshev
+    Chebyshev,
+    FFT
 };
 
 namespace adaai {
@@ -19,7 +21,9 @@ namespace adaai {
     template<typename F, MethodE M = MethodE::Pade>
     constexpr F exp(F x) {  // return e^x
         static_assert(std::is_floating_point<F>::value, "Not a floating point number!");
-
+        if constexpr (M == MethodE::FFT){
+            return exp_fft(x);
+        }
         /*
             We can put long double instead of F in the intermediate
             calculations to achieve maximum accuracy, but in this case
@@ -56,7 +60,8 @@ namespace adaai {
         } else if constexpr (M == MethodE::Pade) {
 //            std::vector<F> members = {30240, 15120, 3360, 420, 30, 1}; // for x^0, x^1, ..., x^5.
 //            std::vector<F> members = {17297280, 8648640, 1995840, 277200, 25200, 1512, 56, 1}; // to x^7
-            std::vector<F> members = {17643225600.0, 8821612800.0, 2075673600.0, 302702400.0, 30270240.0, 2162160.0, 110880.0, 3960.0,
+            std::vector<F> members = {17643225600.0, 8821612800.0, 2075673600.0, 302702400.0, 30270240.0, 2162160.0,
+                                      110880.0, 3960.0,
                                       90.0, 1.0}; // to x^9
             F x_st = 1;
             F divisible = 0; // делимое
@@ -74,7 +79,7 @@ namespace adaai {
             f1 = divisible / divisor;
         } else if constexpr (M == MethodE::Chebyshev) {
             int N = 20;
-            auto *c = (double *)calloc(N + 1, sizeof(double));
+            auto *c = (double *) calloc(N + 1, sizeof(double));
             double d[] = {
                     1.2660658777520084 * 2,
                     1.1303182079849703,
@@ -98,7 +103,7 @@ namespace adaai {
                     3.1774430216550031e-23,
                     7.9436075541375073e-25,
             };
-            for(int i = 0; i < N + 1; i ++){
+            for (int i = 0; i < N + 1; i++) {
                 c[i] = d[i];
             }
 
@@ -109,7 +114,6 @@ namespace adaai {
             f1 = gsl_cheb_eval(cs, x1);
             gsl_cheb_free(cs);
         }
-
         return std::ldexp(f1, int(y_int)); // f1 * 2^n
     }
 
