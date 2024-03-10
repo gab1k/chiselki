@@ -29,6 +29,9 @@ public:
 
     AAD22 operator+(AAD22 const &r) const;
 
+    AAD22 operator+(double const &c) const;
+
+
     AAD22 operator*(AAD22 const &r) const;
 
     AAD22 operator*(double const&n) const;
@@ -37,6 +40,9 @@ public:
 };
 
 AAD22 operator*(double const&n, AAD22 const&val);
+
+AAD22 operator+(double const&n, AAD22 const&val);
+
 
 AAD22 sin(AAD22 const &val);
 

@@ -14,61 +14,61 @@ double F1(double x, double y) {
 // d^2 F1/dydy = -x^2 * sin(x) * cos(xy)
 // d^2 F1/dxdy = xy * sin(x) * cos(xy) - x * sin(xy) * cos(x) - sin(x) * sin(xy)
 
-AAD22 FADD22(AAD22 x, AAD22 y){
-    return 7 * x * y * x;
+AAD22 FADD22(AAD22 x, AAD22 y) {
+    return 7 * x * y * x + 4 + x;
 }
 
-
-double get_resF1(WhichD T, DiffMethod M, double x, double y) {
+template<typename Callable>
+double get_res(Callable F, WhichD T, DiffMethod M, double x, double y) {
     if (T == WhichD::x) {
         if (M == DiffMethod::stencil3) {
-            return adaai::Differentiator<WhichD::x, DiffMethod::stencil3>(F1, x, y);
+            return adaai::Differentiator<WhichD::x, DiffMethod::stencil3>(F, x, y);
         } else if (M == DiffMethod::stencil5) {
-            return adaai::Differentiator<WhichD::x, DiffMethod::stencil5>(F1, x, y);
+            return adaai::Differentiator<WhichD::x, DiffMethod::stencil5>(F, x, y);
         } else if (M == DiffMethod::stencil3Extra) {
-            return adaai::Differentiator<WhichD::x, DiffMethod::stencil3Extra>(F1, x, y);
+            return adaai::Differentiator<WhichD::x, DiffMethod::stencil3Extra>(F, x, y);
         } else if (M == DiffMethod::stencil5Extra) {
-            return adaai::Differentiator<WhichD::x, DiffMethod::stencil5Extra>(F1, x, y);
+            return adaai::Differentiator<WhichD::x, DiffMethod::stencil5Extra>(F, x, y);
         }
     } else if (T == WhichD::y) {
         if (M == DiffMethod::stencil3) {
-            return adaai::Differentiator<WhichD::y, DiffMethod::stencil3>(F1, x, y);
+            return adaai::Differentiator<WhichD::y, DiffMethod::stencil3>(F, x, y);
         } else if (M == DiffMethod::stencil5) {
-            return adaai::Differentiator<WhichD::y, DiffMethod::stencil5>(F1, x, y);
+            return adaai::Differentiator<WhichD::y, DiffMethod::stencil5>(F, x, y);
         } else if (M == DiffMethod::stencil3Extra) {
-            return adaai::Differentiator<WhichD::y, DiffMethod::stencil3Extra>(F1, x, y);
+            return adaai::Differentiator<WhichD::y, DiffMethod::stencil3Extra>(F, x, y);
         } else if (M == DiffMethod::stencil5Extra) {
-            return adaai::Differentiator<WhichD::y, DiffMethod::stencil5Extra>(F1, x, y);
+            return adaai::Differentiator<WhichD::y, DiffMethod::stencil5Extra>(F, x, y);
         }
     } else if (T == WhichD::xx) {
         if (M == DiffMethod::stencil3) {
-            return adaai::Differentiator<WhichD::xx, DiffMethod::stencil3>(F1, x, y);
+            return adaai::Differentiator<WhichD::xx, DiffMethod::stencil3>(F, x, y);
         } else if (M == DiffMethod::stencil5) {
-            return adaai::Differentiator<WhichD::xx, DiffMethod::stencil5>(F1, x, y);
+            return adaai::Differentiator<WhichD::xx, DiffMethod::stencil5>(F, x, y);
         } else if (M == DiffMethod::stencil3Extra) {
-            return adaai::Differentiator<WhichD::xx, DiffMethod::stencil3Extra>(F1, x, y);
+            return adaai::Differentiator<WhichD::xx, DiffMethod::stencil3Extra>(F, x, y);
         } else if (M == DiffMethod::stencil5Extra) {
-            return adaai::Differentiator<WhichD::xx, DiffMethod::stencil5Extra>(F1, x, y);
+            return adaai::Differentiator<WhichD::xx, DiffMethod::stencil5Extra>(F, x, y);
         }
     } else if (T == WhichD::yy) {
         if (M == DiffMethod::stencil3) {
-            return adaai::Differentiator<WhichD::yy, DiffMethod::stencil3>(F1, x, y);
+            return adaai::Differentiator<WhichD::yy, DiffMethod::stencil3>(F, x, y);
         } else if (M == DiffMethod::stencil5) {
-            return adaai::Differentiator<WhichD::yy, DiffMethod::stencil5>(F1, x, y);
+            return adaai::Differentiator<WhichD::yy, DiffMethod::stencil5>(F, x, y);
         } else if (M == DiffMethod::stencil3Extra) {
-            return adaai::Differentiator<WhichD::yy, DiffMethod::stencil3Extra>(F1, x, y);
+            return adaai::Differentiator<WhichD::yy, DiffMethod::stencil3Extra>(F, x, y);
         } else if (M == DiffMethod::stencil5Extra) {
-            return adaai::Differentiator<WhichD::yy, DiffMethod::stencil5Extra>(F1, x, y);
+            return adaai::Differentiator<WhichD::yy, DiffMethod::stencil5Extra>(F, x, y);
         }
     }
     if (M == DiffMethod::stencil3) {
-        return adaai::Differentiator<WhichD::xy, DiffMethod::stencil3>(F1, x, y);
+        return adaai::Differentiator<WhichD::xy, DiffMethod::stencil3>(F, x, y);
     } else if (M == DiffMethod::stencil5) {
-        return adaai::Differentiator<WhichD::xy, DiffMethod::stencil5>(F1, x, y);
+        return adaai::Differentiator<WhichD::xy, DiffMethod::stencil5>(F, x, y);
     } else if (M == DiffMethod::stencil3Extra) {
-        return adaai::Differentiator<WhichD::xy, DiffMethod::stencil3Extra>(F1, x, y);
+        return adaai::Differentiator<WhichD::xy, DiffMethod::stencil3Extra>(F, x, y);
     } else {
-        return adaai::Differentiator<WhichD::xy, DiffMethod::stencil5Extra>(F1, x, y);
+        return adaai::Differentiator<WhichD::xy, DiffMethod::stencil5Extra>(F, x, y);
     }
 }
 
@@ -98,24 +98,32 @@ int main() {
                                  -sin(1) * sin(3) - sin(3) * cos(1) - 3 * sin(1) * cos(3)}},
     };
     std::unordered_map<WhichD, std::string> namesT{
-            {WhichD::x, "X"}, {WhichD::y, "Y"}, {WhichD::xx, "XX"}, {WhichD::yy, "YY"}, {WhichD::xy, "XY"}
+            {WhichD::x,  "X"},
+            {WhichD::y,  "Y"},
+            {WhichD::xx, "XX"},
+            {WhichD::yy, "YY"},
+            {WhichD::xy, "XY"}
     };
     std::unordered_map<DiffMethod, std::string> namesM{
-            {DiffMethod::stencil3, "stencil3"}, {DiffMethod::stencil3Extra, "stencil3Extra"},
-            {DiffMethod::stencil5, "stencil5"}, {DiffMethod::stencil5Extra, "stencil5Extra"},
-            {DiffMethod::FwdAAD, "FwdAAD"}
+            {DiffMethod::stencil3,      "stencil3"},
+            {DiffMethod::stencil3Extra, "stencil3Extra"},
+            {DiffMethod::stencil5,      "stencil5"},
+            {DiffMethod::stencil5Extra, "stencil5Extra"},
+            {DiffMethod::FwdAAD,        "FwdAAD"}
     };
 
     std::vector<WhichD> diff_type{WhichD::x, WhichD::y, WhichD::xx, WhichD::yy, WhichD::xy};
     std::vector<DiffMethod> diff_method{DiffMethod::stencil3, DiffMethod::stencil3Extra, DiffMethod::stencil5,
-                                        DiffMethod::stencil5Extra};
+                                        DiffMethod::stencil5Extra,
+//                                        DiffMethod::FwdAAD
+    };
 
     for (WhichD T: diff_type) {
         for (DiffMethod M: diff_method) {
             for (int i = 0; i < points.size(); i++) {
                 std::cout << "Diff type - " << namesT[T] << "\n" << "Diff Method - " << namesM[M] << "\n";
                 std::cout << "Expected: " << expect_f1[T][i] << "\n";
-                std::cout << "Result:   " << get_resF1(T, M, points[i].first, points[i].second) << "\n"
+                std::cout << "Result:   " << get_res(F1, T, M, points[i].first, points[i].second) << "\n"
                           << "\n\n";
 
             }

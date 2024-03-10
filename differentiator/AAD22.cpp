@@ -13,7 +13,7 @@ AAD22 AAD22::my_sin() const {
 }
 
 
-AAD22 AAD22::operator+(AAD22 const&r) const {
+AAD22 AAD22::operator+(AAD22 const &r) const {
     AAD22 res = *this;
     res.m_val += r.m_val;
     res.m_d1[0] += r.m_d1[0];
@@ -24,7 +24,7 @@ AAD22 AAD22::operator+(AAD22 const&r) const {
     return res;
 }
 
-AAD22 AAD22::operator*(AAD22 const&r) const {
+AAD22 AAD22::operator*(AAD22 const &r) const {
     AAD22 res = *this;
     res.m_val = r.m_val * this->m_val;
     res.m_d1[0] = r.m_d1[0] * this->m_val + r.m_val * this->m_d1[0];
@@ -36,7 +36,7 @@ AAD22 AAD22::operator*(AAD22 const&r) const {
     return res;
 }
 
-AAD22 AAD22::operator*(double const&n) const {
+AAD22 AAD22::operator*(double const &n) const {
     AAD22 res = *this;
     res.m_val *= n;
     res.m_d1[0] *= n;
@@ -62,10 +62,20 @@ double AAD22::get_derivative(WhichD type) {
     throw "incorrect type of differentiation";
 }
 
+AAD22 AAD22::operator+(const double &c) const {
+    AAD22 res = *this;
+    res.m_val += c;
+    return res;
+}
+
 AAD22 sin(AAD22 const &val) {
     return val.my_sin();
 }
 
-AAD22 operator*(double const&n, AAD22 const&val) {
+AAD22 operator*(double const &n, AAD22 const &val) {
     return val * n;
+}
+
+AAD22 operator+(double const &n, AAD22 const &val) {
+    return val + n;
 }
