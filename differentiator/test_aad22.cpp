@@ -1,6 +1,6 @@
 #include "../common/random_num.hpp"
 #include "differentiator.hpp"
-#include "AAD22.cpp"
+#include "aad22.cpp"
 #include "F1.hpp"
 
 #include <iostream>
@@ -44,4 +44,3 @@ int main() {
     std::cout << "Max absolute error is: " << max_err << "\n";
     return 0;
 }
-

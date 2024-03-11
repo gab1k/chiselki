@@ -1,4 +1,4 @@
-#include "AAD22.hpp"
+#include "aad22.hpp"
 #include <cmath>
 
 AAD22 AAD22::my_sin() const {

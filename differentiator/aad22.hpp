@@ -31,8 +31,6 @@ public:
 
     [[nodiscard]] AAD22 my_exp() const;
 
-
-
     AAD22 operator+(AAD22 const &r) const;
 
     AAD22 operator+(double const &c) const;

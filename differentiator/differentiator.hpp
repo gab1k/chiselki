@@ -2,13 +2,12 @@
 #define DIFFERENTIATOR_HPP_
 
 #include <cmath>
-#include "AAD22.hpp"
+#include "aad22.hpp"
 #include "enums.hpp"
 
 
 namespace adaai {
     template<WhichD D, DiffMethod M, typename Callable>
-    // Order = 1 or Order = 2;
     double Differentiator(Callable const &F, double x, double y, double h_increase = 1) { // F(x, y) -> a
         if constexpr (M == DiffMethod::FwdAAD) {
             try {
@@ -34,7 +33,9 @@ namespace adaai {
                 } else if constexpr (D == WhichD::yy) {
                     return (F(x, y + h) - 2 * F(x, y) + F(x, y - h)) / (h * h);
                 }
-                return (F(x + h, y + h) - F(x + h, y) - F(x, y + h) + F(x, y)) / (h * h); // CHECK THIS!
+                double d_p = (F(x + h, y + h) - F(x - h, y + h)) / (2 * h);
+                double d_m = (F(x + h, y - h) - F(x - h, y - h)) / (2 * h);
+                return (d_p - d_m) / (2 * h);
 
             } else if constexpr (M == DiffMethod::stencil5) {
                 if constexpr (D == WhichD::x) {
