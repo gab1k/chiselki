@@ -27,15 +27,27 @@ public:
 
     [[nodiscard]] AAD22 my_sin() const;
 
+    [[nodiscard]] AAD22 my_cos() const;
+
+    [[nodiscard]] AAD22 my_exp() const;
+
+
+
     AAD22 operator+(AAD22 const &r) const;
 
     AAD22 operator+(double const &c) const;
 
+    AAD22 operator-(AAD22 const &r) const;
+
+    AAD22 operator-(double const &c) const;
 
     AAD22 operator*(AAD22 const &r) const;
 
     AAD22 operator*(double const&n) const;
 
+    AAD22 operator/(AAD22 const &r) const;
+
+    AAD22 operator/(double const&n) const;
 
 };
 
@@ -43,8 +55,14 @@ AAD22 operator*(double const&n, AAD22 const&val);
 
 AAD22 operator+(double const&n, AAD22 const&val);
 
+AAD22 operator/(double const&n, AAD22 const&val);
 
 AAD22 sin(AAD22 const &val);
+
+AAD22 cos(AAD22 const &val);
+
+AAD22 exp(AAD22 const &val);
+
 
 #endif // AAD22_HPP_
 

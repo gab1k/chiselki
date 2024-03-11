@@ -11,10 +11,14 @@ namespace adaai {
     // Order = 1 or Order = 2;
     double Differentiator(Callable const &F, double x, double y, double h_increase = 1) { // F(x, y) -> a
         if constexpr (M == DiffMethod::FwdAAD) {
-            AAD22 X = AAD22::X(x);
-            AAD22 Y = AAD22::Y(y);
-            AAD22 Res = F(X, Y);
-            return Res.get_derivative(D);
+            try {
+                AAD22 X = AAD22::X(x);
+                AAD22 Y = AAD22::Y(y);
+                AAD22 Res = F(X, Y);
+                return Res.get_derivative(D);
+            } catch (...) {
+                throw "Callable function is not AAD22 class";
+            }
         } else {
             double h = 1e-4 * h_increase;
             if (std::abs(x) >= 1) {

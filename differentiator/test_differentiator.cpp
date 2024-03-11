@@ -14,10 +14,6 @@ double F1(double x, double y) {
 // d^2 F1/dydy = -x^2 * sin(x) * cos(xy)
 // d^2 F1/dxdy = xy * sin(x) * cos(xy) - x * sin(xy) * cos(x) - sin(x) * sin(xy)
 
-AAD22 FADD22(AAD22 x, AAD22 y) {
-    return 7 * x * y * x + 4 + x;
-}
-
 template<typename Callable>
 double get_res(Callable F, WhichD T, DiffMethod M, double x, double y) {
     if (T == WhichD::x) {
@@ -97,25 +93,10 @@ int main() {
             {WhichD::xy, {0,
                                  -sin(1) * sin(3) - sin(3) * cos(1) - 3 * sin(1) * cos(3)}},
     };
-    std::unordered_map<WhichD, std::string> namesT{
-            {WhichD::x,  "X"},
-            {WhichD::y,  "Y"},
-            {WhichD::xx, "XX"},
-            {WhichD::yy, "YY"},
-            {WhichD::xy, "XY"}
-    };
-    std::unordered_map<DiffMethod, std::string> namesM{
-            {DiffMethod::stencil3,      "stencil3"},
-            {DiffMethod::stencil3Extra, "stencil3Extra"},
-            {DiffMethod::stencil5,      "stencil5"},
-            {DiffMethod::stencil5Extra, "stencil5Extra"},
-            {DiffMethod::FwdAAD,        "FwdAAD"}
-    };
 
     std::vector<WhichD> diff_type{WhichD::x, WhichD::y, WhichD::xx, WhichD::yy, WhichD::xy};
     std::vector<DiffMethod> diff_method{DiffMethod::stencil3, DiffMethod::stencil3Extra, DiffMethod::stencil5,
                                         DiffMethod::stencil5Extra,
-//                                        DiffMethod::FwdAAD
     };
 
     for (WhichD T: diff_type) {
