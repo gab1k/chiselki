@@ -3,11 +3,11 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
-#include "F1.hpp"
+#include "functions.hpp"
 #include "../common/random_num.hpp"
 
 template<typename Callable>
-double get_res(Callable F, WhichD T, DiffMethod M, double x, double y) {
+    double get_res(Callable F, WhichD T, DiffMethod M, double x, double y) {
     if (T == WhichD::x) {
         if (M == DiffMethod::stencil3) {
             return adaai::Differentiator<WhichD::x, DiffMethod::stencil3>(F, x, y);
@@ -93,10 +93,20 @@ stress_test(Callable F, double from_x, double to_x, double from_y, double to_y, 
 
 
 int main() {
-    Func1 f;
-    auto res = stress_test(f, -3, 3, -3, 3);
+    Func1 f1;
+    std::cout << "Testing Func1:\n";
+    auto res = stress_test(f1, -3, 3, -3, 3);
     for(auto P: res){
         std::cout << "Method " << namesM[P.first] << " max error is: " << P.second << "\n";
     }
+    std::cout << "\n\n";
+
+    Func2 f2;
+    std::cout << "Testing Func2:\n";
+    res = stress_test(f2, -3, 3, -3, 3);
+    for(auto P: res){
+        std::cout << "Method " << namesM[P.first] << " max error is: " << P.second << "\n";
+    }
+    std::cout << "\n\n";
     return 0;
 }

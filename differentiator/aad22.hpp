@@ -8,6 +8,7 @@ private:
     double m_val;
     double m_d1[2];
     double m_d2[3];
+
     constexpr AAD22(int i, double v) : m_val(v), m_d2{0, 0, 0},
                                        m_d1{(i == 0 ? 1.0 : 0.0), (i == 0 ? 0.0 : 1.0)} {}; // i == 0 for x, i = 1 for y
 public:
@@ -35,25 +36,52 @@ public:
 
     AAD22 operator+(double const &c) const;
 
+    AAD22 operator+=(AAD22 const &r);
+
+    AAD22 operator+=(double const &c);
+
+    AAD22 operator*(AAD22 const &r) const;
+
+    AAD22 operator*(double const &n) const;
+
+    AAD22 operator*=(AAD22 const &r);
+
+    AAD22 operator*=(double const &c);
+
     AAD22 operator-(AAD22 const &r) const;
 
     AAD22 operator-(double const &c) const;
 
-    AAD22 operator*(AAD22 const &r) const;
+    AAD22 operator-=(AAD22 const &r);
 
-    AAD22 operator*(double const&n) const;
+    AAD22 operator-=(double const &c);
 
     AAD22 operator/(AAD22 const &r) const;
 
-    AAD22 operator/(double const&n) const;
+    AAD22 operator/(double const &n) const;
+
+    AAD22 operator/=(AAD22 const &r);
+
+    AAD22 operator/=(double const &c);
 
 };
 
-AAD22 operator*(double const&n, AAD22 const&val);
+AAD22 operator*(double const &n, AAD22 const &val);
 
-AAD22 operator+(double const&n, AAD22 const&val);
+AAD22 operator*=(double const &n, AAD22 const &val) = delete;
 
-AAD22 operator/(double const&n, AAD22 const&val);
+AAD22 operator+(double const &n, AAD22 const &val);
+
+AAD22 operator+=(double const &n, AAD22 const &val) = delete;
+
+AAD22 operator-(double const &n, AAD22 const &val);
+
+AAD22 operator-=(double const &n, AAD22 const &val) = delete;
+
+AAD22 operator/(double const &n, AAD22 const &val);
+
+AAD22 operator/=(double const &n, AAD22 const &val) = delete;
+
 
 AAD22 sin(AAD22 const &val);
 
