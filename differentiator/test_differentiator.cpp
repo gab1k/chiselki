@@ -101,9 +101,17 @@ int main() {
     }
     std::cout << "\n\n";
 
-    Func2 f2;
+    Func2 f2; // Func2 == Func1, but with +=, *= etc
     std::cout << "Testing Func2:\n";
     res = stress_test(f2, -3, 3, -3, 3);
+    for(auto P: res){
+        std::cout << "Method " << namesM[P.first] << " max error is: " << P.second << "\n";
+    }
+    std::cout << "\n\n";
+
+    Func3 f3;
+    std::cout << "Testing Func3:\n";
+    res = stress_test(f3, -1000, 1000, -1000, 1000, 10000);
     for(auto P: res){
         std::cout << "Method " << namesM[P.first] << " max error is: " << P.second << "\n";
     }

@@ -84,14 +84,14 @@ struct Func2 {
 struct Func3 {
     template<typename T>
     T operator()(T x, T y) const { // Func3(x, y) = (8x^2 - 5xy - 3)/(x^2 + y^4 + 7)
-
-        T xy5 = x;
-        x *= y;
-        xy5 *= 5;
-
         T x2_8 = x;
         x2_8 *= x;
         x2_8 *= 8;
+
+        T xy5 = x;
+        xy5 *= y;
+        xy5 *= 5;
+
 
         x2_8 -= xy5;
         x2_8 -= 3; // числитель
@@ -106,6 +106,7 @@ struct Func3 {
         x2_8 /= x2;
 
         return x2_8;
+//        return (8 * x * x - 5 * x * y - 3) / (x * x + y * y * y * y + 7);
     }
 
     static double get_diff(WhichD T, double x, double y) {
