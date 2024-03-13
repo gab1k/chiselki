@@ -1,8 +1,8 @@
-#ifndef F1_HPP_
-#define F1_HPP_
+#ifndef FUNCTIONS_HPP_
+#define FUNCTIONS_HPP_
 
 #include "enums.hpp"
-#include "../common/consts.hpp"
+#include "consts.hpp"
 
 struct Func1 {
     template<typename T>
@@ -101,7 +101,7 @@ struct Func3 {
         T y4 = y * y * y * y;
 
         x2 += y4;
-        x2 += 7; // знаминатель
+        x2 += 7; // знаменатель
 
         x2_8 /= x2;
 
@@ -133,4 +133,4 @@ struct Func3 {
     }
 };
 
-#endif // F1_HPP_
+#endif // FUNCTIONS_HPP_

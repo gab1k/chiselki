@@ -2,8 +2,8 @@
 #define DIFFERENTIATOR_HPP_
 
 #include <cmath>
+
 #include "aad22.hpp"
-#include "enums.hpp"
 
 
 namespace adaai {

@@ -1,10 +1,25 @@
-#include "differentiator.hpp"
-#include "aad22.cpp"
 #include <iostream>
-#include <vector>
 #include <unordered_map>
+
+#include "differentiator.hpp"
 #include "functions.hpp"
-#include "../common/random_num.hpp"
+#include "random_num.hpp"
+
+
+std::unordered_map<WhichD, std::string> namesT{
+        {WhichD::x,  "X"},
+        {WhichD::y,  "Y"},
+        {WhichD::xx, "XX"},
+        {WhichD::yy, "YY"},
+        {WhichD::xy, "XY"}
+};
+std::unordered_map<DiffMethod, std::string> namesM{
+        {DiffMethod::stencil3,      "stencil3"},
+        {DiffMethod::stencil3Extra, "stencil3Extra"},
+        {DiffMethod::stencil5,      "stencil5"},
+        {DiffMethod::stencil5Extra, "stencil5Extra"},
+        {DiffMethod::FwdAAD,        "FwdAAD"}
+};
 
 template<typename Callable>
     double get_res(Callable F, WhichD T, DiffMethod M, double x, double y) {
