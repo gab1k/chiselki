@@ -1,5 +1,7 @@
 #include <iostream>
 #include <unordered_map>
+#include <fstream>
+#include <map>
 
 #include "differentiator.hpp"
 #include "functions.hpp"
@@ -22,7 +24,7 @@ std::unordered_map<DiffMethod, std::string> namesM{
 };
 
 template<typename Callable>
-    double get_res(Callable F, WhichD T, DiffMethod M, double x, double y) {
+double get_res(Callable F, WhichD T, DiffMethod M, double x, double y) {
     if (T == WhichD::x) {
         if (M == DiffMethod::stencil3) {
             return adaai::Differentiator<WhichD::x, DiffMethod::stencil3>(F, x, y);
@@ -85,13 +87,14 @@ template<typename Callable>
 }
 
 template<typename Callable>
-std::unordered_map<DiffMethod, double>
+std::map<std::pair<DiffMethod, WhichD>, double>
 stress_test(Callable F, double from_x, double to_x, double from_y, double to_y, int n = 10000) {
-    std::unordered_map<DiffMethod, double> res{{DiffMethod::stencil3,      0},
-                                               {DiffMethod::stencil5,      0},
-                                               {DiffMethod::stencil3Extra, 0},
-                                               {DiffMethod::stencil5Extra, 0},
-                                               {DiffMethod::FwdAAD,        0}};
+    std::map<std::pair<DiffMethod, WhichD>, double> res;
+    for (const auto &TT: namesT) {
+        for (const auto &MM: namesM) {
+            res[{MM.first, TT.first}] = 0;
+        }
+    }
     for (int i = 0; i < n; i++) {
         double x = get_rand_val(from_x, to_x);
         double y = get_rand_val(from_y, to_y);
@@ -99,7 +102,7 @@ stress_test(Callable F, double from_x, double to_x, double from_y, double to_y, 
             for (const auto &MM: namesM) {
                 double expected = F.get_diff(TT.first, x, y);
                 double current = get_res(F, TT.first, MM.first, x, y);
-                res[MM.first] = std::max(res[MM.first], std::abs(expected - current));
+                res[{MM.first, TT.first}] = std::max(res[{MM.first, TT.first}], std::abs(expected - current));
             }
         }
     }
@@ -108,28 +111,45 @@ stress_test(Callable F, double from_x, double to_x, double from_y, double to_y, 
 
 
 int main() {
+    std::string filePath = "../differentiator/logs.txt";
+    std::ofstream ofs(filePath.c_str(), std::ios_base::out);
+
     Func1 f1;
-    std::cout << "Testing Func1:\n";
+    ofs << "Testing Func1:\n";
     auto res = stress_test(f1, -3, 3, -3, 3);
-    for(auto P: res){
-        std::cout << "Method " << namesM[P.first] << " max error is: " << P.second << "\n";
+    for (const auto &MM: namesM) {
+        ofs << "Diff method " << MM.second << ":\n";
+        for (const auto &TT: namesT) {
+            ofs << "Diff type: " << TT.second << " max error is: " << res[{MM.first, TT.first}] << "\n";
+        }
+        ofs << "\n";
     }
-    std::cout << "\n\n";
+
+    ofs << "\n\n";
 
     Func2 f2; // Func2 == Func1, but with +=, *= etc
-    std::cout << "Testing Func2:\n";
+    ofs << "Testing Func2:\n";
     res = stress_test(f2, -3, 3, -3, 3);
-    for(auto P: res){
-        std::cout << "Method " << namesM[P.first] << " max error is: " << P.second << "\n";
+    for (const auto &MM: namesM) {
+        ofs << "Diff method " << MM.second << ":\n";
+        for (const auto &TT: namesT) {
+            ofs << "Diff type: " << TT.second << " max error is: " << res[{MM.first, TT.first}] << "\n";
+        }
+        ofs << "\n";
     }
-    std::cout << "\n\n";
+    ofs << "\n\n";
 
     Func3 f3;
-    std::cout << "Testing Func3:\n";
+    ofs << "Testing Func3:\n";
     res = stress_test(f3, -1000, 1000, -1000, 1000, 10000);
-    for(auto P: res){
-        std::cout << "Method " << namesM[P.first] << " max error is: " << P.second << "\n";
+    for (const auto &MM: namesM) {
+        ofs << "Diff method " << MM.second << ":\n";
+        for (const auto &TT: namesT) {
+            ofs << "Diff type: " << TT.second << " max error is: " << res[{MM.first, TT.first}] << "\n";
+        }
+        ofs << "\n";
     }
-    std::cout << "\n\n";
+    ofs << "\n\n";
+    ofs.close();
     return 0;
 }
