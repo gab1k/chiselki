@@ -60,15 +60,56 @@ public:
 
 class CD { // SHOULD REWRITE
 private:
-    std::vector<double> cd;
+    double Mp = 0.5 / 118.0; // 0.5 M = 118 pixels
+    double CDp = 0.1 / 80.0; // 0.1 CD = 80 pixels
+    double a = 0.46431097913627956, b = 0.67929407312546719;
+    std::vector<double> coef; // coef[i] = (point[i + 1].s - point[i].s) / (point[i + 1].f - point[i].f)
+    std::vector<std::pair<double, double>> points{{0.25,           0.1 + CDp * 11},     // M, CD(M)
+                                                  {0.5 + Mp * 23,  0.1 + CDp * 14},
+                                                  {0.5 + Mp * 70,  0.1 + CDp * 21},
+                                                  {0.5 + Mp * 83,  0.1 + CDp * 29},
+                                                  {0.5 + Mp * 95,  0.1 + CDp * 55},
+                                                  {0.5 + Mp * 106, 0.2 + CDp * 39},
+                                                  {1.0,            0.4 + CDp * 32},
+                                                  {1.0 + Mp * 12,  0.4 + CDp * 24},
+                                                  {1.0 + Mp * 25,  0.4 + CDp * 8},
+                                                  {1.0 + Mp * 37,  0.4 + CDp * 4},
+                                                  {1.0 + Mp * 49,  0.3 + CDp * 79},
+                                                  {1.0 + Mp * 95,  0.3 + CDp * 54},
+                                                  {1.5 + Mp * 25,  0.3 + CDp * 29},
+                                                  {1.5 + Mp * 70,  0.3 + CDp * 13},
+                                                  {2 + Mp * 25,    0.2 + CDp * 61},
+                                                  {2 + Mp * 47,    0.2 + CDp * 52}
+    };
+
+    int get_i(double M) {
+        for (int i = 0; i < points.size(); i++) {
+            if (M <= points[i].first) {
+                return i - 1;
+            }
+        }
+        return (int) points.size();
+    }
+
 public:
+
+    CD() {
+        coef.resize(points.size() - 1);
+        for (int i = 1; i < points.size(); i++) {
+            coef[i - 1] = (points[i].second - points[i - 1].second) / (points[i].first - points[i - 1].first);
+        }
+    }
+
     double operator()(double M) {
-        return M;
+        int i = get_i(M);
+        if (i < points.size() - 1) { // if between 2 points
+            return points[i].second + coef[i] * (M - points[i].first);
+        }
+        return a * pow(M, -b);
     }
 };
 
 double get_Q(double y, double v) { // y = h
-
     double diam = 0.216;
     double S = (M_PI * diam * diam) / 4.0;
     Rho rho;
@@ -84,14 +125,35 @@ std::vector<double> get_diff(const std::vector<double> &u) {
     const double g = 9.80655;
     double m = 106;
     double Q = get_Q(u[2], v);
-    res[1] = - ((Q * u[1]) / v) / m;
-    res[3] = - ((Q * u[3]) / v) / m - g;
+    res[1] = -((Q * u[1]) / v) / m;
+    res[3] = -((Q * u[3]) / v) / m - g;
     return res;
+}
+
+void find_a_b() {
+    double p1 = 1.5, p2 = 2.0;
+    // CD(M) = a * M^{-b}
+
+    // CD(p1) = a * p1{-b}
+    // CD(p2) = a * p2^{-b}
+    // CD(p1) / CD(p2) = (p1/p2) ^ {-b} = (p2/p1)^b
+    // log (CD(p1) / CD(p2)) = log ((p2/p1)^b) = b * log (p2/p1)
+    // b = log (CD(p1) / CD(p2)) / log (p2/p1)
+    CD cd;
+    double cd1 = cd(p1);
+    double cd2 = cd(p2);
+    double b = log(cd1 / cd2) / log(p2 / p1);
+    // a = CD(p1) / (p1^{-b})
+    double a = cd1 / pow(p1, -b);
+
+    std::cout.precision(17);
+    std::cout << "a = " << a << "\nb = " << b << "\n";
 }
 
 int main() {
     Rho rho;
-//    rho.print_all_coeff(); // correct only for correct pref
+//    rho.print_all_coeff(); // correct only for correct layer pref
+//    find_a_b();
     double h = 0;
     while (h < 47000) {
         h += 100;
