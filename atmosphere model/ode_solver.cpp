@@ -229,7 +229,8 @@ int main() {
 
     ObserverBestCorner get_plot;
     ODE_Integrator best_corner_integrator(&stepper, &get_plot);
-    std::vector<double> t, x, y, end(RHS::N), start = {0, v0 * cos(53.0 * M_PI / 180), 0, v0 * sin(53.0 * M_PI / 180)};
+    double alpha = 53 * M_PI / 180;
+    std::vector<double> t, x, y, end(RHS::N), start = {0, v0 * cos(alpha), 0, v0 * sin(alpha)};
     best_corner_integrator(0, start, 1e9, end);
     get_plot.fill_point(t, x, y);
     print_points_to_plot(x, y);
