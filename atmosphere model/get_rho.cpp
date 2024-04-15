@@ -58,7 +58,7 @@ public:
     }
 };
 
-class CD { // SHOULD REWRITE
+class CD {
 private:
     double Mp = 0.5 / 118.0; // 0.5 M = 118 pixels
     double CDp = 0.1 / 80.0; // 0.1 CD = 80 pixels
@@ -150,13 +150,13 @@ void find_a_b() {
     std::cout << "a = " << a << "\nb = " << b << "\n";
 }
 
-int main() {
-    Rho rho;
+//int main() {
+//    Rho rho;
 //    rho.print_all_coeff(); // correct only for correct layer pref
 //    find_a_b();
-    double h = 0;
-    while (h < 47000) {
-        h += 100;
-        std::cout << "h = " << h << ", Rho = " << rho(h) << "\n";
-    }
-}
+//    double h = 0;
+//    while (h < 47000) {
+//        h += 100;
+//        std::cout << "h = " << h << ", Rho = " << rho(h) << "\n";
+//    }
+//}
