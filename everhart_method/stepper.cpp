@@ -23,8 +23,8 @@ public:
 
     TimeStepper_everhart(RHS *a_rhs) : rhs(a_rhs) {
         t.resize(K + 1);
-        B.resize(K + 1);
-        F.resize(K + 1, std::vector<std::vector<double>>(K + 1, std::vector<double>(N)));
+        B.resize(K + 1, std::vector<double>(N));
+        F.resize(K + 1, std::vector<std::vector<double>>(K + 2, std::vector<double>(N)));
     }
 
     std::pair<double, double> operator()(double a_t, const std::vector<double> &a_y, double h,
@@ -56,11 +56,12 @@ private:
     RHS *rhs;
     std::vector<double> t;
     std::vector<std::vector<std::vector<double>>> F; // index start, size, vector F
+    std::vector<std::vector<double>> B;
     // if F[2][3] its means F[t2, t3, t4]. F[1][1] its means F[1]
-    std::vector<double> F0, B;
+    std::vector<double> F0;
 //    std::vector<double> start, res;
 
-    void find_B() {
+    void find_B(double h) {
 /*
  L(t) = F(t0) + \sum\limits_{i=1}^k * (t - t0) * ... * (t - t_{i-1})
  и мы знаем, что k = 5, t_i = t0 + h/k * i = t0 + ih/5
@@ -72,15 +73,31 @@ private:
          F[t0, t1, t2, t3, t4) *  (t - t0) * (t - t1) * (t - t2) * (t - t3) +
          F[t0, t1, t2, t3, t4, t5) *  (t - t0) * (t - t1) * (t - t2) * (t - t3) * (t - t4)
      = (подставим t_i = t0 + ih/5) =
-         F[t0) +
-         F[t0, t1] * (t - t0) +
-         F[t0, t1, t2] * (t^2 - 2*t0*t + t0^2 + ht/5 - h*t0/5) +
-         и так далее, перписывать не стану, просто соберу по стеменям t:
+         (a) F[t0) +
+         (b) F[t0, t1] * (t - t0) +
+         (c) F[t0, t1, t2] * (t^2 - 2*t0*t + t0^2 + ht/5 - h*t0/5) +
+         и так далее, перписывать не стану, просто соберу по стеменям t-t0:
     = Пусть a = F[t0], b = F[t0, t1], ..., f = F[t0, ..., t5] =
         Тогда L(t) = \sum\limits_{j=0}^k (B[j] * (t - t0)^j)
-        B[j] - выражается через a,b,c,d,e,f,h,t0
+        B[j] - выражается через a,b,c,d,e,f,h,t-t0
+        =
+        a +
+        (t - t0) * (  b + ch/5 + 2d*(h^2)/25 + 24*f*(h^4)/625 + 6*e*(h^3)/125  ) +
+        (t - t0)^2 * (  c + 3dh/5 + 2f*(h^3)/5 + 11e*(h^2)/25  ) +
+        (t - t0)^3 * (  d + 7f*(h^2)/5 + eh  ) +
+        (t - t0)^4 * (  2fh + e  ) +
+        (t - t0)^5 * (  f  )
  */
-
+        std::vector<double> a = F[0][1], b = F[0][2], c = F[0][3], d = F[0][4], e = F[0][5], f = F[0][6];
+        for (int i = 0; i < N; i++) {
+            B[0][i] = a[i];
+            B[1][i] = b[i] + c[i] * h / 5 + 2 * d[i] * pow(h, 2) / 25 + 24 * f[i] * pow(h, 4) / 625 +
+                      6 * e[i] * pow(h, 3) / 125;
+            B[2][i] = c[i] + 3 * d[i] * h / 5 + 2 * f[i] * pow(h, 3) / 5 + 11 * e[i] * pow(h, 2) / 25;
+            B[3][i] = d[i] + 7 * f[i] * pow(h, 5) + e[i] * h;
+            B[4][i] = 2 * f[i] * h + e[i];
+            B[5][i] = f[i];
+        }
     }
 
     void find_divided_difference(const std::vector<double> &a_y, double _t0, bool initial = false) { //
@@ -95,7 +112,7 @@ private:
             F[i][1] = F_i;
         }
         for (int i = 0; i < K; i++) {
-            for (int j = 2; i + j - 1 <= K; j++) {
+            for (int j = 2; i + j - 1 <= K + 1; j++) {
                 // F[i][j] = (F[i+1][j-1] - F[i][j-1]) / (t[i+j-1] - t[i]) (вообще можно сказать что (t[i+j-1] - t[i]) = k * (j - 1) / 5)
                 for (int id; id < N; id++) {
                     F[i][j][id] = (F[i + 1][j - 1][id] - F[i][j - 1][id]) / (t[i + j - 1] - t[i]);
@@ -115,7 +132,7 @@ private:
             for (int i = 0; i < N; i++) {
                 where_write[N + 1 + i] = a_y[N + i + 1];
                 for (int j = 0; j <= K; j++) {
-                    where_write[N + 1 + i] += (B[j] * pow(_t - _t0, j + 1)) / (j + 1);
+                    where_write[N + 1 + i] += (B[j][i] * pow(_t - _t0, j + 1)) / (j + 1);
                 }
             }
         }
@@ -133,7 +150,7 @@ private:
             for (int i = 0; i < N; i++) {
                 where_write[i + 1] = a_y[i + 1] + a_y[N + i + 1] * (_t - _t0);
                 for (int j = 0; j <= K; j++) {
-                    where_write[i + 1] += (B[j] * pow(_t - _t0, j + 2)) / ((j + 1) * (j + 2));
+                    where_write[i + 1] += (B[j][i] * pow(_t - _t0, j + 2)) / ((j + 1) * (j + 2));
                 }
             }
         }
