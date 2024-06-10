@@ -2,7 +2,7 @@
 #include <cmath>
 #include <vector>
 #include <fstream>
-#include "get_rho.cpp"
+#include "get_rho.hpp"
 
 
 class RHS {
@@ -192,7 +192,7 @@ public:
 };
 
 void print_points_to_plot(std::vector<double> &x, std::vector<double> &y) {
-    std::string filePath = "atmosphere model/points_logs.txt";
+    std::string filePath = "atmosphere_model/points_logs.txt";
     std::ofstream ofs(filePath.c_str(), std::ios_base::out);
 
     ofs << "x = [\n";

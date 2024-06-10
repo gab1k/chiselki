@@ -21,7 +21,7 @@ namespace adaai {
     template<typename F, MethodE M = MethodE::Pade>
     constexpr F exp(F x) {  // return e^x
         static_assert(std::is_floating_point<F>::value, "Not a floating point number!");
-        if constexpr (M == MethodE::FFT){
+        if constexpr (M == MethodE::FFT) {
             return exp_fft(x);
         }
         /*
@@ -32,7 +32,7 @@ namespace adaai {
         if (std::isnan(x)) {
             return x;
         }
-        F y = x / C_LN_2<F>;  // e^x = 2^(x/ln2) = 2^y
+        F y = x / C_LN2<F>;  // e^x = 2^(x/ln2) = 2^y
         F y_int, y_float;
         y_float = std::modf(y, &y_int);
 
@@ -46,7 +46,7 @@ namespace adaai {
             y_int += (std::signbit(y_float) ? -1 : 1);
             y_float += (std::signbit(y_float) ? 1 : -1);
         }
-        F x1 = y_float * C_LN_2<F>; // e^x = 2^[x] * e^{{x}*Ln2}. x1 = {x}*Ln2
+        F x1 = y_float * C_LN2<F>; // e^x = 2^[x] * e^{{x}*Ln2}. x1 = {x}*Ln2
         F f1 = 0.0; // want find e^x1
         if constexpr (M == MethodE::Taylor) {
             F next = 1.0;
