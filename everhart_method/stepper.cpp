@@ -21,8 +21,9 @@ public:
     constexpr static int K = 5;
     constexpr static int COUNT_APPROACH = 10;
 
-    TimeStepper_everhart(RHS *a_rhs) : rhs(a_rhs) {
+    explicit TimeStepper_everhart(RHS *a_rhs) : rhs(a_rhs), t({}), B({}), F({}), F0({}) {
         t.resize(K + 1);
+        F0.resize(N);
         B.resize(K + 1, std::vector<double>(N));
         F.resize(K + 1, std::vector<std::vector<double>>(K + 2, std::vector<double>(N)));
     }
@@ -34,21 +35,19 @@ public:
         // a_y[1, ..., N] = y
         // a_y[N+1, ..., 2N] = dy/dt
 
-        // a_y_next.size() = N = (dy)^2 / (dt)^2
+        // a_y_next.size() = 2 * N + 1
 
         for (int i = 0; i <= K; i++) {
             t[i] = a_t + h * i / K;
         }
-        rhs(a_y, F0, a_t, a_t); // find f(t_0, y(t_0), dy/dt(t_0);
+        (*rhs)(a_y, F0, a_t, a_t); // find f(t_0, y(t_0), dy/dt(t_0);
         for (int step = 0; step < COUNT_APPROACH; step++) {
             find_divided_difference(a_y, a_t, step == 0);
-            find_B();
+            find_B(h);
         }
-        std::vector<double> rhs_val(2 * N + 1); // t, y, dy/dt
-        rhs_val[0] = a_t + h;
-        fill_y(a_y, a_t + h, a_t, rhs_val);
-        fill_dy_dt(a_y, a_t + h, a_t, rhs_val);
-        rhs(rhs_val, a_y_next, a_t, a_t + h);
+        a_y_next[0] = a_t + h;
+        fill_y(a_y, a_t + h, a_t, a_y_next);
+        fill_dy_dt(a_y, a_t + h, a_t, a_y_next);
         return {a_t + h, h};
     }
 
@@ -108,13 +107,13 @@ private:
             fill_dy_dt(a_y, t[i], _t0, curr_a_y, initial);
             fill_y(a_y, t[i], _t0, curr_a_y, initial);
 
-            rhs(curr_a_y, F_i, _t0, t[i]);
+            (*rhs)(curr_a_y, F_i, _t0, t[i]);
             F[i][1] = F_i;
         }
         for (int i = 0; i < K; i++) {
-            for (int j = 2; i + j - 1 <= K + 1; j++) {
+            for (int j = 2; i + j - 1 < K + 1; j++) {
                 // F[i][j] = (F[i+1][j-1] - F[i][j-1]) / (t[i+j-1] - t[i]) (вообще можно сказать что (t[i+j-1] - t[i]) = k * (j - 1) / 5)
-                for (int id; id < N; id++) {
+                for (int id = 0; id < N; id++) {
                     F[i][j][id] = (F[i + 1][j - 1][id] - F[i][j - 1][id]) / (t[i + j - 1] - t[i]);
                 }
             }
@@ -138,7 +137,7 @@ private:
         }
     }
 
-    std::vector<double>
+    void
     fill_y(const std::vector<double> &a_y, double _t, double _t0, std::vector<double> &where_write,
            bool initial = false) {
         std::vector<double> y(N);
@@ -157,7 +156,9 @@ private:
     }
 };
 
-int main() {
-    RHS rhs;
-    TimeStepper_everhart stepper(&rhs);
-}
+//int main() {
+//    RHS rhs;
+//    TimeStepper_everhart stepper(&rhs);
+//    std::vector<double> start(7), end(7);
+//    stepper(1, start, 1, end);
+//}
