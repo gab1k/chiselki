@@ -23,6 +23,11 @@ add_executable(test-differentiator
         differentiator/aad22.cpp
         differentiator/test_differentiator.cpp)
 
+include_directories(everhart_method)
+add_executable(evethart
+        everhart_method/stepper.hpp
+        everhart_method/determine_satellite_position.cpp)
+
 include_directories(useful)
 add_executable(pre-calculation-chebyshev-coefficients
         useful/chebyshev_coefficients.cpp)

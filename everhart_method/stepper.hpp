@@ -155,10 +155,3 @@ private:
         }
     }
 };
-
-//int main() {
-//    RHS rhs;
-//    TimeStepper_everhart stepper(&rhs);
-//    std::vector<double> start(7), end(7);
-//    stepper(1, start, 1, end);
-//}

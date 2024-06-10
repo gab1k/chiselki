@@ -1,10 +1,9 @@
-#include "stepper.cpp"
-#include <iosfwd>
+#include "stepper.hpp"
 #include <string>
 #include <fstream>
 
 const double MU = 398600.4; // km^3/sec^2
-const double Re = 6378.137; // km радиус земли
+const double Re = 6378.137; // km радиус Земли
 const double J2 = 1.0827 * 1e-3;
 
 class RHS_U2 {
@@ -75,7 +74,8 @@ private:
     std::ofstream ofs;
 
 public:
-    explicit ObserverPoints(const std::string &filePath = "points.txt") : ofs(filePath.c_str(), std::ios_base::out) {
+    explicit ObserverPoints(const std::string &filePath = "../everhart_method/points.txt") : ofs(filePath.c_str(),
+                                                                                                 std::ios_base::out) {
         ofs << "[";
     }
 
