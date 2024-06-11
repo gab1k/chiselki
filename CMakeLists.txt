@@ -49,12 +49,18 @@ add_executable(test-differentiator
         differentiator/test_differentiator.cpp)
 
 
-#include_directories(atmosphere_model)
-#add_executable(projectile
-#        atmosphere_model/get_rho.hpp
-#        atmosphere_model/get_rho.cpp
-#        atmosphere_model/ode_solver.cpp)
-#
+include_directories(atmosphere_model)
+add_executable(ode
+        atmosphere_model/rho.hpp
+        atmosphere_model/rho.cpp
+        atmosphere_model/ode_solver.cpp)
+
+add_executable(get-rho-coefficients
+        atmosphere_model/rho.hpp
+        atmosphere_model/rho.cpp
+        atmosphere_model/rho_coefficients.cpp)
+
+
 #include_directories(everhart_method)
 #add_executable(evethart
 #        everhart_method/stepper.hpp

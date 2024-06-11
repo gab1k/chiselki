@@ -1,9 +1,9 @@
-#include <iostream>
 #include <cmath>
-#include <vector>
+#include <iostream>
 #include <fstream>
-#include "get_rho.hpp"
+#include <vector>
 
+#include "rho.hpp"
 
 class RHS {
 public:
@@ -36,7 +36,7 @@ private:
 public:
     constexpr static int N = RHS::N;
 
-    TimeStepper_RKF45(RHS *a_rhs) : m_rhs(a_rhs) {}
+    explicit TimeStepper_RKF45(RHS *a_rhs) : m_rhs(a_rhs) {}
 
     std::pair<double, double>
     operator()(double a_t, const std::vector<double> &a_y, double h,
@@ -124,7 +124,7 @@ public:
 //        static_assert(a_yEnd.size() == Stepper::N);
         double curr_t = a_t0;
         double curr_h = 1e-5;
-        std::vector<double> curr_y = std::move(a_y0);
+        std::vector<double> curr_y = a_y0;
         for (int i = 1; curr_t < a_tEnd; i++) {
             std::pair<double, double> res = (*m_stepper)(curr_t, curr_y, curr_h, a_yEnd);
             curr_t = res.first;
@@ -192,7 +192,7 @@ public:
 };
 
 void print_points_to_plot(std::vector<double> &x, std::vector<double> &y) {
-    std::string filePath = "atmosphere_model/points_logs.txt";
+    std::string filePath = "../atmosphere_model/logs/points_logs.txt";
     std::ofstream ofs(filePath.c_str(), std::ios_base::out);
 
     ofs << "x = [\n";
@@ -224,7 +224,7 @@ int main() {
             res = {alpha, maxRange.get_max_distance()};
         }
     }
-    std::cout << "max distance = " << res.second << ". With corner = " << res.first << "\n\n";
+    std::cout << "max distance = " << res.second << ". With corner = " << res.first << "\n";
     // best corner = 53
 
     ObserverBestCorner get_plot;
