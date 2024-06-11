@@ -1,6 +1,6 @@
 #include <gsl/gsl_linalg.h>
 
-void solve(int N) {
+void get_chebyshev_coefficients(int N) {
     auto *a_data = (double *) calloc(N * N, sizeof(double));
     auto *b_data = (double *) calloc(N, sizeof(double));
     if (!a_data || !b_data) {
@@ -12,7 +12,7 @@ void solve(int N) {
         for (int n = k + 1; n < N; ++n) {
             if ((n & 1) != (k & 1)) {
                 if (k == 0) {
-                    a_data[N * k + n] =  n;
+                    a_data[N * k + n] = n;
                 } else
                     a_data[N * k + n] = 2 * n;
             }
@@ -46,6 +46,5 @@ void solve(int N) {
 }
 
 int main() {
-    solve(21);
-    return 0;
+    get_chebyshev_coefficients(21);
 }

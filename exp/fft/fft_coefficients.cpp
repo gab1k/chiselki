@@ -1,13 +1,7 @@
-// a0 = 14.095
-// a1 = -7.6842
-// a2 = 2.8190
-// a3 = -1.5369
-// a4 = 0.82913
-// a5 = -0.59109
-
 #include <iostream>
+
 #include "chebyshev_polynomials.hpp"
-#include "../common/consts.hpp"
+#include "consts.hpp"
 
 long double find_pol_in_x(const std::vector<long long> &T, long double x) {
     long double ans = 0;
@@ -19,7 +13,7 @@ long double find_pol_in_x(const std::vector<long long> &T, long double x) {
     return ans;
 }
 
-std::vector<long double> solve(unsigned N) {
+std::vector<long double> get_fft_coefficients(unsigned N) {
     std::vector<long double> ans(N + 1); // k \in [0, N]
     adaai::ChebyshevPolynomials pols(N + 1);
     for (unsigned k = 0; k <= N; k++) {
@@ -34,7 +28,14 @@ std::vector<long double> solve(unsigned N) {
 }
 
 int main() {
-    std::vector<long double> a = solve(31);
+    // a0 = 14.095
+    // a1 = -7.6842
+    // a2 = 2.8190
+    // a3 = -1.5369
+    // a4 = 0.82913
+    // a5 = -0.59109
+
+    std::vector<long double> a = get_fft_coefficients(31);
     std::cout.precision(17);
     for (long double a_k: a) {
         std::cout << a_k << ",\n0,\n";

@@ -1,0 +1,174 @@
+Eps = 2.22045e-16
+
+Taylor:
+Case: 0 < |x| < 1e-07
+Absolute error for  x < 0 = 1.11022e-16; It is 0.5 * eps
+Relative error for x >= 0 = 2.22045e-16; It is 1 * eps
+Our error is              = 2.22045e-16; It is 1 * eps
+
+Case: 1e-07 < |x| < 0.34
+Absolute error for  x < 0 = 4.44089e-16; It is 2 * eps
+Relative error for x >= 0 = 6.66134e-16; It is 3 * eps
+Our error is              = 6.66134e-16; It is 3 * eps
+
+Case: 0.34 < |x| < 3
+Absolute error for  x < 0 = 4.44089e-16; It is 2 * eps
+Relative error for x >= 0 = 8.88178e-16; It is 4 * eps
+Our error is              = 8.88178e-16; It is 4 * eps
+
+Case: 3 < |x| < 5
+Absolute error for  x < 0 = 4.16334e-17; It is 0.1875 * eps
+Relative error for x >= 0 = 8.88178e-16; It is 4 * eps
+Our error is              = 8.88178e-16; It is 4 * eps
+
+Case: 5 < |x| < 10
+Absolute error for  x < 0 = 5.20417e-18; It is 0.0234375 * eps
+Relative error for x >= 0 = 1.33227e-15; It is 6 * eps
+Our error is              = 1.33227e-15; It is 6 * eps
+
+Case: 10 < |x| < 30
+Absolute error for  x < 0 = 4.74338e-20; It is 0.000213623 * eps
+Relative error for x >= 0 = 3.55271e-15; It is 16 * eps
+Our error is              = 3.55271e-15; It is 16 * eps
+
+Case: 30 < |x| < 50
+Absolute error for  x < 0 = 3.15544e-28; It is 1.42109e-12 * eps
+Relative error for x >= 0 = 6.66134e-15; It is 30 * eps
+Our error is              = 6.66134e-15; It is 30 * eps
+
+Case: 50 < |x| < 70
+Absolute error for  x < 0 = 1.199e-36; It is 5.39984e-21 * eps
+Relative error for x >= 0 = 7.54952e-15; It is 34 * eps
+Our error is              = 7.54952e-15; It is 34 * eps
+
+Case: 70 < |x| < 230
+Absolute error for  x < 0 = 2.49606e-45; It is 1.12413e-29 * eps
+Relative error for x >= 0 = 2.73115e-14; It is 123 * eps
+Our error is              = 2.73115e-14; It is 123 * eps
+
+Case: 230 < |x| < 500
+Absolute error for  x < 0 = 2.69022e-114; It is 1.21157e-98 * eps
+Relative error for x >= 0 = 5.57332e-14; It is 251 * eps
+Our error is              = 5.57332e-14; It is 251 * eps
+
+Case: 500 < |x| < 750
+Absolute error for  x < 0 = 3.62315e-231; It is 1.63172e-215 * eps
+Relative error for x >= 0 = 6.26166e-14; It is 282 * eps
+Our error is              = 6.26166e-14; It is 282 * eps
+
+
+
+Pade:
+Case: 0 < |x| < 1e-07
+Absolute error for  x < 0 = 2.22045e-16; It is 1 * eps
+Relative error for x >= 0 = 2.22045e-16; It is 1 * eps
+Our error is              = 2.22045e-16; It is 1 * eps
+
+Case: 1e-07 < |x| < 0.34
+Absolute error for  x < 0 = 6.66134e-16; It is 3 * eps
+Relative error for x >= 0 = 7.77156e-16; It is 3.5 * eps
+Our error is              = 7.77156e-16; It is 3.5 * eps
+
+Case: 0.34 < |x| < 3
+Absolute error for  x < 0 = 4.44089e-16; It is 2 * eps
+Relative error for x >= 0 = 1.11022e-15; It is 5 * eps
+Our error is              = 1.11022e-15; It is 5 * eps
+
+Case: 3 < |x| < 5
+Absolute error for  x < 0 = 3.46945e-17; It is 0.15625 * eps
+Relative error for x >= 0 = 1.11022e-15; It is 5 * eps
+Our error is              = 1.11022e-15; It is 5 * eps
+
+Case: 5 < |x| < 10
+Absolute error for  x < 0 = 6.93889e-18; It is 0.03125 * eps
+Relative error for x >= 0 = 1.55431e-15; It is 7 * eps
+Our error is              = 1.55431e-15; It is 7 * eps
+
+Case: 10 < |x| < 30
+Absolute error for  x < 0 = 5.42101e-20; It is 0.000244141 * eps
+Relative error for x >= 0 = 3.77476e-15; It is 17 * eps
+Our error is              = 3.77476e-15; It is 17 * eps
+
+Case: 30 < |x| < 50
+Absolute error for  x < 0 = 3.02923e-28; It is 1.36424e-12 * eps
+Relative error for x >= 0 = 6.88338e-15; It is 31 * eps
+Our error is              = 6.88338e-15; It is 31 * eps
+
+Case: 50 < |x| < 70
+Absolute error for  x < 0 = 1.22251e-36; It is 5.50571e-21 * eps
+Relative error for x >= 0 = 7.54952e-15; It is 34 * eps
+Our error is              = 7.54952e-15; It is 34 * eps
+
+Case: 70 < |x| < 230
+Absolute error for  x < 0 = 2.58364e-45; It is 1.16357e-29 * eps
+Relative error for x >= 0 = 2.77556e-14; It is 125 * eps
+Our error is              = 2.77556e-14; It is 125 * eps
+
+Case: 230 < |x| < 500
+Absolute error for  x < 0 = 2.66484e-114; It is 1.20014e-98 * eps
+Relative error for x >= 0 = 5.59552e-14; It is 252 * eps
+Our error is              = 5.59552e-14; It is 252 * eps
+
+Case: 500 < |x| < 750
+Absolute error for  x < 0 = 3.63321e-231; It is 1.63625e-215 * eps
+Relative error for x >= 0 = 6.28386e-14; It is 283 * eps
+Our error is              = 6.28386e-14; It is 283 * eps
+
+
+
+Chebyshev:
+Case: 0 < |x| < 1e-07
+Absolute error for  x < 0 = 1.11022e-16; It is 0.5 * eps
+Relative error for x >= 0 = 2.22045e-16; It is 1 * eps
+Our error is              = 2.22045e-16; It is 1 * eps
+
+Case: 1e-07 < |x| < 0.34
+Absolute error for  x < 0 = 2.22045e-16; It is 1 * eps
+Relative error for x >= 0 = 4.44089e-16; It is 2 * eps
+Our error is              = 4.44089e-16; It is 2 * eps
+
+Case: 0.34 < |x| < 3
+Absolute error for  x < 0 = 2.22045e-16; It is 1 * eps
+Relative error for x >= 0 = 6.66134e-16; It is 3 * eps
+Our error is              = 6.66134e-16; It is 3 * eps
+
+Case: 3 < |x| < 5
+Absolute error for  x < 0 = 2.77556e-17; It is 0.125 * eps
+Relative error for x >= 0 = 6.66134e-16; It is 3 * eps
+Our error is              = 6.66134e-16; It is 3 * eps
+
+Case: 5 < |x| < 10
+Absolute error for  x < 0 = 3.46945e-18; It is 0.015625 * eps
+Relative error for x >= 0 = 1.33227e-15; It is 6 * eps
+Our error is              = 1.33227e-15; It is 6 * eps
+
+Case: 10 < |x| < 30
+Absolute error for  x < 0 = 4.74338e-20; It is 0.000213623 * eps
+Relative error for x >= 0 = 3.55271e-15; It is 16 * eps
+Our error is              = 3.55271e-15; It is 16 * eps
+
+Case: 30 < |x| < 50
+Absolute error for  x < 0 = 3.15544e-28; It is 1.42109e-12 * eps
+Relative error for x >= 0 = 6.66134e-15; It is 30 * eps
+Our error is              = 6.66134e-15; It is 30 * eps
+
+Case: 50 < |x| < 70
+Absolute error for  x < 0 = 1.22251e-36; It is 5.50571e-21 * eps
+Relative error for x >= 0 = 7.32747e-15; It is 33 * eps
+Our error is              = 7.32747e-15; It is 33 * eps
+
+Case: 70 < |x| < 230
+Absolute error for  x < 0 = 2.49606e-45; It is 1.12413e-29 * eps
+Relative error for x >= 0 = 2.73115e-14; It is 123 * eps
+Our error is              = 2.73115e-14; It is 123 * eps
+
+Case: 230 < |x| < 500
+Absolute error for  x < 0 = 2.69022e-114; It is 1.21157e-98 * eps
+Relative error for x >= 0 = 5.59552e-14; It is 252 * eps
+Our error is              = 5.59552e-14; It is 252 * eps
+
+Case: 500 < |x| < 750
+Absolute error for  x < 0 = 3.63321e-231; It is 1.63625e-215 * eps
+Relative error for x >= 0 = 6.26166e-14; It is 282 * eps
+Our error is              = 6.26166e-14; It is 282 * eps
+

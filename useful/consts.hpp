@@ -33,37 +33,15 @@ namespace adaai {
     template<>
     constexpr inline long double C_SQRT2<long double> = M_SQRT1_2l;
 
-    namespace exp_consts {
-
-        template<typename F>
-        constexpr inline unsigned MKExpTaylorOrder() {
-            F ln2_n_sqrt2 = C_SQRT2<F>;
-            F n_fact = 1;
-            for (unsigned n = 0; n < 1000; n++) {
-                if (ln2_n_sqrt2 < C_EPS<F> * n_fact) {
-                    return n - 1;
-                }
-                ln2_n_sqrt2 *= C_LN2<F>;
-                n_fact *= n + 1;
-            }
-            return 1000; // static_assert(false)
-        }
-
-    }
-
-    // --------------------------------------- define Pi
     template<typename F>
     constexpr inline F Pi;
-
     template<>
     constexpr inline float Pi<float> = 3.1415926535f;
-
     template<>
     constexpr inline double Pi<double> = 3.14159265358979323846;
-
     template<>
     constexpr inline long double Pi<long double> = 3.1415926535897932384626433846l;
-    // --------------------------------------- define Pi
+
 } // namespace adaai
 
 #endif // CONSTS_HPP_

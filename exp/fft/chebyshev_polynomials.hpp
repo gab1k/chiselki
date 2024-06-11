@@ -4,6 +4,7 @@
 #include <vector>
 
 namespace adaai {
+
     // {-1, 0, 3, 0, 0} = 3x^2 - 1
     class ChebyshevPolynomials {
     private:
@@ -42,6 +43,7 @@ namespace adaai {
             return polynoms[k];
         }
     };
-}
+
+} // namespace adaai
 
 #endif // CHEBYSHEV_POLYNOMIALS_HPP_
