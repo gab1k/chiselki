@@ -2,18 +2,6 @@
 #include <iostream>
 #include <cmath>
 
-class RHS {
-public:
-    constexpr static int N = 3;
-
-    void operator()(const std::vector<double> &a_y, std::vector<double> &a_rhs, double _t0, double _t) {
-        // and solve from a_y, to a_rhs. Change values of a_rhs
-        // a_y -> R ^ {2N + 1}
-        // a_rhs -> R ^ {N}
-    }
-};
-
-
 template<typename RHS>
 class TimeStepper_everhart {
 public:
