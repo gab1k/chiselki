@@ -1,5 +1,7 @@
-#include "aad22.hpp"
 #include <cmath>
+#include <stdexcept>
+
+#include "aad22.hpp"
 
 AAD22 AAD22::my_sin() const {
     AAD22 res = *this;
@@ -15,7 +17,6 @@ AAD22 AAD22::my_sin() const {
 AAD22 sin(AAD22 const &val) {
     return val.my_sin();
 }
-
 
 AAD22 AAD22::my_cos() const {
     AAD22 res = *this;
@@ -47,7 +48,6 @@ AAD22 exp(AAD22 const &val) {
     return val.my_exp();
 }
 
-
 AAD22 AAD22::operator+(AAD22 const &r) const {
     AAD22 res = *this;
     res.m_val += r.m_val;
@@ -76,7 +76,6 @@ AAD22 AAD22::operator+=(const double &c) {
     return *this += AAD22(c);
 }
 
-
 AAD22 AAD22::operator*(AAD22 const &r) const {
     AAD22 res = *this;
     res.m_val = r.m_val * this->m_val;
@@ -96,7 +95,6 @@ AAD22 AAD22::operator*(double const &n) const {
 AAD22 operator*(double const &n, AAD22 const &val) {
     return val * n;
 }
-
 
 AAD22 AAD22::operator*=(const AAD22 &r) {
     *this = *this * r;
@@ -134,10 +132,12 @@ AAD22 AAD22::operator/(const AAD22 &r) const {
     res.m_d1[0] = (this->m_d1[0] * r.m_val - this->m_val * r.m_d1[0]) / (r.m_val * r.m_val);
     res.m_d1[1] = (this->m_d1[1] * r.m_val - this->m_val * r.m_d1[1]) / (r.m_val * r.m_val);
     res.m_d2[0] =
-            (-r.m_val * (2 * this->m_d1[0] * r.m_d1[0] + this->m_val * r.m_d2[0]) + this->m_d2[0] * r.m_val * r.m_val +
+            (-r.m_val * (2 * this->m_d1[0] * r.m_d1[0] + this->m_val * r.m_d2[0]) +
+             this->m_d2[0] * r.m_val * r.m_val +
              2 * this->m_val * r.m_d1[0] * r.m_d1[0]) / (r.m_val * r.m_val * r.m_val);
     res.m_d2[1] =
-            (-r.m_val * (2 * this->m_d1[1] * r.m_d1[1] + this->m_val * r.m_d2[1]) + this->m_d2[1] * r.m_val * r.m_val +
+            (-r.m_val * (2 * this->m_d1[1] * r.m_d1[1] + this->m_val * r.m_d2[1]) +
+             this->m_d2[1] * r.m_val * r.m_val +
              2 * this->m_val * r.m_d1[1] * r.m_d1[1]) / (r.m_val * r.m_val * r.m_val);
     res.m_d2[2] = (-r.m_val * (this->m_d1[0] * r.m_d1[1] + this->m_d1[1] * r.m_d1[0] + this->m_val * r.m_d2[2]) +
                    this->m_d2[2] * r.m_val * r.m_val + 2 * this->m_val * r.m_d1[0] * r.m_d1[1]) /
@@ -174,5 +174,5 @@ double AAD22::get_derivative(WhichD type) {
     } else if (type == WhichD::xy) {
         return m_d2[2];
     }
-    throw "incorrect type of differentiation";
+    throw std::invalid_argument("incorrect type of differentiation");
 }

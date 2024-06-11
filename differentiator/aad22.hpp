@@ -1,7 +1,13 @@
 #ifndef AAD22_HPP_
 #define AAD22_HPP_
 
-#include "enums.hpp"
+enum class WhichD : int {
+    x, // df / dx
+    y, // df / dy
+    xx, // df / dxdx
+    yy, // df / dydy
+    xy // df / dxdy
+};
 
 class AAD22 {
 private:
@@ -10,7 +16,8 @@ private:
     double m_d2[3];
 
     constexpr AAD22(int i, double v) : m_val(v), m_d2{0, 0, 0},
-                                       m_d1{(i == 0 ? 1.0 : 0.0), (i == 0 ? 0.0 : 1.0)} {}; // i == 0 for x, i = 1 for y
+                                       m_d1{(i == 0 ? 1.0 : 0.0),
+                                            (i == 0 ? 0.0 : 1.0)} {}; // i == 0 for x, i = 1 for y
 public:
     AAD22() = delete;
 
@@ -89,6 +96,4 @@ AAD22 cos(AAD22 const &val);
 
 AAD22 exp(AAD22 const &val);
 
-
 #endif // AAD22_HPP_
-

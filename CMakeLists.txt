@@ -39,17 +39,16 @@ add_executable(get-fft-coefficients
 target_link_libraries(get-fft-coefficients GSL::gsl)
 
 
-#include_directories(differentiator)
-#add_executable(test-differentiator
-#        useful/random_num.hpp
-#        useful/consts.hpp
-#        differentiator/differentiator.hpp
-#        differentiator/functions.hpp
-#        differentiator/enums.hpp
-#        differentiator/aad22.hpp
-#        differentiator/aad22.cpp
-#        differentiator/test_differentiator.cpp)
-#
+include_directories(differentiator)
+add_executable(test-differentiator
+        useful/consts.hpp
+        useful/random_num.hpp
+        differentiator/differentiator.hpp
+        differentiator/aad22.hpp
+        differentiator/aad22.cpp
+        differentiator/test_differentiator.cpp)
+
+
 #include_directories(atmosphere_model)
 #add_executable(projectile
 #        atmosphere_model/get_rho.hpp

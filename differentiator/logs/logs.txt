@@ -1,0 +1,114 @@
+Testing Func1:
+Diff method FwdAAD:
+Diff type: XY max error is: 4.54747e-13
+Diff type: YY max error is: 2.27374e-13
+Diff type: XX max error is: 9.09495e-13
+Diff type: Y max error is: 5.68434e-14
+Diff type: X max error is: 5.68434e-14
+
+Diff method stencil5Extra:
+Diff type: XY max error is: 4.84894e-06
+Diff type: YY max error is: 2.14341e-05
+Diff type: XX max error is: 2.07714e-05
+Diff type: Y max error is: 1.30706e-09
+Diff type: X max error is: 1.68075e-09
+
+Diff method stencil5:
+Diff type: XY max error is: 0.000651701
+Diff type: YY max error is: 4.76307e-06
+Diff type: XX max error is: 3.74819e-06
+Diff type: Y max error is: 5.1574e-10
+Diff type: X max error is: 4.22119e-10
+
+Diff method stencil3Extra:
+Diff type: XY max error is: 4.84894e-06
+Diff type: YY max error is: 1.65685e-05
+Diff type: XX max error is: 1.5178e-05
+Diff type: Y max error is: 9.80492e-10
+Diff type: X max error is: 1.18735e-09
+
+Diff method stencil3:
+Diff type: XY max error is: 0.000651701
+Diff type: YY max error is: 3.13939e-05
+Diff type: XX max error is: 0.000422338
+Diff type: Y max error is: 2.67527e-05
+Diff type: X max error is: 0.000209681
+
+
+
+Testing Func2:
+Diff method FwdAAD:
+Diff type: XY max error is: 6.53699e-13
+Diff type: YY max error is: 4.54747e-13
+Diff type: XX max error is: 9.09495e-13
+Diff type: Y max error is: 1.13687e-13
+Diff type: X max error is: 8.52651e-14
+
+Diff method stencil5Extra:
+Diff type: XY max error is: 3.93528e-06
+Diff type: YY max error is: 2.37929e-05
+Diff type: XX max error is: 2.17961e-05
+Diff type: Y max error is: 1.90545e-09
+Diff type: X max error is: 1.22815e-09
+
+Diff method stencil5:
+Diff type: XY max error is: 0.00084257
+Diff type: YY max error is: 3.73073e-06
+Diff type: XX max error is: 5.59197e-06
+Diff type: Y max error is: 5.14888e-10
+Diff type: X max error is: 6.0146e-10
+
+Diff method stencil3Extra:
+Diff type: XY max error is: 3.93528e-06
+Diff type: YY max error is: 1.78821e-05
+Diff type: XX max error is: 1.6909e-05
+Diff type: Y max error is: 1.42711e-09
+Diff type: X max error is: 8.50974e-10
+
+Diff method stencil3:
+Diff type: XY max error is: 0.00084257
+Diff type: YY max error is: 3.52896e-05
+Diff type: XX max error is: 0.000515573
+Diff type: Y max error is: 2.53822e-05
+Diff type: X max error is: 0.000261599
+
+
+
+Testing Func3:
+Diff method FwdAAD:
+Diff type: XY max error is: 1.38778e-17
+Diff type: YY max error is: 1.66533e-16
+Diff type: XX max error is: 6.40357e-18
+Diff type: Y max error is: 1.66533e-16
+Diff type: X max error is: 4.92228e-17
+
+Diff method stencil5Extra:
+Diff type: XY max error is: 3.12285e-10
+Diff type: YY max error is: 2.28125e-09
+Diff type: XX max error is: 6.23512e-10
+Diff type: Y max error is: 9.14344e-11
+Diff type: X max error is: 9.64491e-13
+
+Diff method stencil5:
+Diff type: XY max error is: 3.3099e-08
+Diff type: YY max error is: 3.15234e-10
+Diff type: XX max error is: 1.17862e-10
+Diff type: Y max error is: 3.65793e-10
+Diff type: X max error is: 1.34287e-13
+
+Diff method stencil3Extra:
+Diff type: XY max error is: 3.12285e-10
+Diff type: YY max error is: 1.84757e-09
+Diff type: XX max error is: 4.37692e-10
+Diff type: Y max error is: 2.28692e-11
+Diff type: X max error is: 6.09396e-13
+
+Diff method stencil3:
+Diff type: XY max error is: 3.3099e-08
+Diff type: YY max error is: 4.45345e-07
+Diff type: XX max error is: 9.9211e-11
+Diff type: Y max error is: 4.50115e-06
+Diff type: X max error is: 3.24114e-10
+
+
+
