@@ -1,0 +1,159 @@
+Eps = 1.0842e-19
+
+Taylor:
+Case: 0 < |x| < 1e-10
+Absolute error for  x < 0 = 5.42101e-20; It is 0.5 * eps
+Relative error for x >= 0 = 1.0842e-19; It is 1 * eps
+Our error is              = 1.0842e-19; It is 1 * eps
+
+Case: 1e-10 < |x| < 0.34
+Absolute error for  x < 0 = 2.1684e-19; It is 2 * eps
+Relative error for x >= 0 = 4.33681e-19; It is 4 * eps
+Our error is              = 4.33681e-19; It is 4 * eps
+
+Case: 0.34 < |x| < 3
+Absolute error for  x < 0 = 1.6263e-19; It is 1.5 * eps
+Relative error for x >= 0 = 4.33681e-19; It is 4 * eps
+Our error is              = 4.33681e-19; It is 4 * eps
+
+Case: 3 < |x| < 10
+Absolute error for  x < 0 = 1.69407e-20; It is 0.15625 * eps
+Relative error for x >= 0 = 7.58942e-19; It is 7 * eps
+Our error is              = 7.58942e-19; It is 7 * eps
+
+Case: 10 < |x| < 20
+Absolute error for  x < 0 = 2.64698e-23; It is 0.000244141 * eps
+Relative error for x >= 0 = 1.0842e-18; It is 10 * eps
+Our error is              = 1.0842e-18; It is 10 * eps
+
+Case: 20 < |x| < 50
+Absolute error for  x < 0 = 1.81754e-27; It is 1.67638e-08 * eps
+Relative error for x >= 0 = 3.36103e-18; It is 31 * eps
+Our error is              = 3.36103e-18; It is 31 * eps
+
+Case: 50 < |x| < 150
+Absolute error for  x < 0 = 4.47698e-40; It is 4.12929e-21 * eps
+Relative error for x >= 0 = 7.31836e-18; It is 67.5 * eps
+Our error is              = 7.31836e-18; It is 67.5 * eps
+
+Case: 150 < |x| < 250
+Absolute error for  x < 0 = 4.78723e-83; It is 4.41544e-64 * eps
+Relative error for x >= 0 = 1.38778e-17; It is 128 * eps
+Our error is              = 1.38778e-17; It is 128 * eps
+
+Case: 250 < |x| < 500
+Absolute error for  x < 0 = 3.27771e-126; It is 3.02315e-107 * eps
+Relative error for x >= 0 = 2.73219e-17; It is 252 * eps
+Our error is              = 2.73219e-17; It is 252 * eps
+
+Case: 500 < |x| < 1000
+Absolute error for  x < 0 = 1.61186e-234; It is 1.48668e-215 * eps
+Relative error for x >= 0 = 5.48064e-17; It is 505.5 * eps
+Our error is              = 5.48064e-17; It is 505.5 * eps
+
+
+
+Pade:
+Case: 0 < |x| < 1e-10
+Absolute error for  x < 0 = 1.0842e-19; It is 1 * eps
+Relative error for x >= 0 = 1.0842e-19; It is 1 * eps
+Our error is              = 1.0842e-19; It is 1 * eps
+
+Case: 1e-10 < |x| < 0.34
+Absolute error for  x < 0 = 3.79471e-19; It is 3.5 * eps
+Relative error for x >= 0 = 3.79471e-19; It is 3.5 * eps
+Our error is              = 3.79471e-19; It is 3.5 * eps
+
+Case: 0.34 < |x| < 3
+Absolute error for  x < 0 = 2.1684e-19; It is 2 * eps
+Relative error for x >= 0 = 4.87891e-19; It is 4.5 * eps
+Our error is              = 4.87891e-19; It is 4.5 * eps
+
+Case: 3 < |x| < 10
+Absolute error for  x < 0 = 2.03288e-20; It is 0.1875 * eps
+Relative error for x >= 0 = 7.58942e-19; It is 7 * eps
+Our error is              = 7.58942e-19; It is 7 * eps
+
+Case: 10 < |x| < 20
+Absolute error for  x < 0 = 2.64698e-23; It is 0.000244141 * eps
+Relative error for x >= 0 = 1.19262e-18; It is 11 * eps
+Our error is              = 1.19262e-18; It is 11 * eps
+
+Case: 20 < |x| < 50
+Absolute error for  x < 0 = 1.81754e-27; It is 1.67638e-08 * eps
+Relative error for x >= 0 = 3.41524e-18; It is 31.5 * eps
+Our error is              = 3.41524e-18; It is 31.5 * eps
+
+Case: 50 < |x| < 150
+Absolute error for  x < 0 = 4.24739e-40; It is 3.91753e-21 * eps
+Relative error for x >= 0 = 7.37257e-18; It is 68 * eps
+Our error is              = 7.37257e-18; It is 68 * eps
+
+Case: 150 < |x| < 250
+Absolute error for  x < 0 = 4.73575e-83; It is 4.36796e-64 * eps
+Relative error for x >= 0 = 1.37694e-17; It is 127 * eps
+Our error is              = 1.37694e-17; It is 127 * eps
+
+Case: 250 < |x| < 500
+Absolute error for  x < 0 = 3.20846e-126; It is 2.95928e-107 * eps
+Relative error for x >= 0 = 2.74303e-17; It is 253 * eps
+Our error is              = 2.74303e-17; It is 253 * eps
+
+Case: 500 < |x| < 1000
+Absolute error for  x < 0 = 1.62169e-234; It is 1.49574e-215 * eps
+Relative error for x >= 0 = 5.47522e-17; It is 505 * eps
+Our error is              = 5.47522e-17; It is 505 * eps
+
+
+
+Chebyshev:
+Case: 0 < |x| < 1e-10
+Absolute error for  x < 0 = 1.38778e-16; It is 1280 * eps
+Relative error for x >= 0 = 1.66533e-16; It is 1536 * eps
+Our error is              = 1.66533e-16; It is 1536 * eps
+
+Case: 1e-10 < |x| < 0.34
+Absolute error for  x < 0 = 1.84152e-16; It is 1698.5 * eps
+Relative error for x >= 0 = 2.82652e-16; It is 2607 * eps
+Our error is              = 2.82652e-16; It is 2607 * eps
+
+Case: 0.34 < |x| < 3
+Absolute error for  x < 0 = 1.96024e-16; It is 1808 * eps
+Relative error for x >= 0 = 2.70725e-16; It is 2497 * eps
+Our error is              = 2.70725e-16; It is 2497 * eps
+
+Case: 3 < |x| < 10
+Absolute error for  x < 0 = 1.19669e-17; It is 110.375 * eps
+Relative error for x >= 0 = 2.80158e-16; It is 2584 * eps
+Our error is              = 2.80158e-16; It is 2584 * eps
+
+Case: 10 < |x| < 20
+Absolute error for  x < 0 = 1.13357e-20; It is 0.104553 * eps
+Relative error for x >= 0 = 2.807e-16; It is 2589 * eps
+Our error is              = 2.807e-16; It is 2589 * eps
+
+Case: 20 < |x| < 50
+Absolute error for  x < 0 = 3.65729e-25; It is 3.37325e-06 * eps
+Relative error for x >= 0 = 2.80049e-16; It is 2583 * eps
+Our error is              = 2.80049e-16; It is 2583 * eps
+
+Case: 50 < |x| < 150
+Absolute error for  x < 0 = 2.60583e-38; It is 2.40346e-19 * eps
+Relative error for x >= 0 = 2.83085e-16; It is 2611 * eps
+Our error is              = 2.83085e-16; It is 2611 * eps
+
+Case: 150 < |x| < 250
+Absolute error for  x < 0 = 1.41352e-81; It is 1.30374e-62 * eps
+Relative error for x >= 0 = 2.64762e-16; It is 2442 * eps
+Our error is              = 2.64762e-16; It is 2442 * eps
+
+Case: 250 < |x| < 500
+Absolute error for  x < 0 = 3.31926e-125; It is 3.06147e-106 * eps
+Relative error for x >= 0 = 2.77773e-16; It is 2562 * eps
+Our error is              = 2.77773e-16; It is 2562 * eps
+
+Case: 500 < |x| < 1000
+Absolute error for  x < 0 = 6.55555e-234; It is 6.04643e-215 * eps
+Relative error for x >= 0 = 2.78748e-16; It is 2571 * eps
+Our error is              = 2.78748e-16; It is 2571 * eps
+

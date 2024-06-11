@@ -1,0 +1,157 @@
+Testing float:
+Start testing with N = 32
+
+for i = 0 FFT value is: 1.030809402 expected: 1
+absolute error is: 0.03080940231
+
+for i = 2 FFT value is: 1.21808461 expected: 1.216952205
+absolute error is: 0.001132405438
+
+for i = 4 FFT value is: 1.480982376 expected: 1.480972648
+absolute error is: 9.728554756e-06
+
+for i = 6 FFT value is: 1.80201481 expected: 1.802272916
+absolute error is: 0.0002581059286
+
+for i = 8 FFT value is: 2.192897494 expected: 2.193279982
+absolute error is: 0.0003824871315
+
+for i = 10 FFT value is: 2.66864267 expected: 2.669117212
+absolute error is: 0.0004745421465
+
+for i = 12 FFT value is: 3.247620836 expected: 3.24818778
+absolute error is: 0.0005669444021
+
+for i = 14 FFT value is: 3.95221038 expected: 3.952889681
+absolute error is: 0.0006793007662
+
+for i = 16 FFT value is: 4.809648757 expected: 4.810477734
+absolute error is: 0.0008289765255
+
+for i = 18 FFT value is: 5.853077982 expected: 5.854121208
+absolute error is: 0.0010432259
+
+for i = 20 FFT value is: 7.122814813 expected: 7.124186039
+absolute error is: 0.001371226104
+
+for i = 22 FFT value is: 8.667882872 expected: 8.669795036
+absolute error is: 0.001912164775
+
+for i = 24 FFT value is: 10.54782997 expected: 10.55072403
+absolute error is: 0.002894063511
+
+for i = 26 FFT value is: 12.83474895 expected: 12.83972836
+absolute error is: 0.004979400424
+
+for i = 28 FFT value is: 15.61468212 expected: 15.62533665
+absolute error is: 0.01065452452
+
+for i = 30 FFT value is: 18.97895143 expected: 19.01528549
+absolute error is: 0.03633406532
+
+
+
+Testing double:
+Start testing with N = 32
+
+for i = 0 FFT value is: 1.030809402 expected: 1
+absolute error is: 0.03080940231
+
+for i = 2 FFT value is: 1.21808461 expected: 1.216952206
+absolute error is: 0.001132404635
+
+for i = 4 FFT value is: 1.480982376 expected: 1.48097267
+absolute error is: 9.705731777e-06
+
+for i = 6 FFT value is: 1.80201481 expected: 1.802272958
+absolute error is: 0.0002581477377
+
+for i = 8 FFT value is: 2.192897494 expected: 2.193280051
+absolute error is: 0.0003825562564
+
+for i = 10 FFT value is: 2.66864267 expected: 2.669116995
+absolute error is: 0.0004743248925
+
+for i = 12 FFT value is: 3.247620836 expected: 3.248187814
+absolute error is: 0.0005669778955
+
+for i = 14 FFT value is: 3.95221038 expected: 3.952889324
+absolute error is: 0.0006789439004
+
+for i = 16 FFT value is: 4.809648757 expected: 4.810477381
+absolute error is: 0.0008286238788
+
+for i = 18 FFT value is: 5.853077982 expected: 5.854121058
+absolute error is: 0.00104307602
+
+for i = 20 FFT value is: 7.122814813 expected: 7.124185533
+absolute error is: 0.001370720353
+
+for i = 22 FFT value is: 8.667882872 expected: 8.669793297
+absolute error is: 0.001910425557
+
+for i = 24 FFT value is: 10.54782997 expected: 10.55072407
+absolute error is: 0.002894108168
+
+for i = 26 FFT value is: 12.83474895 expected: 12.83972693
+absolute error is: 0.004977976814
+
+for i = 28 FFT value is: 15.61468212 expected: 15.62533401
+absolute error is: 0.01065188525
+
+for i = 30 FFT value is: 18.97895143 expected: 19.01528468
+absolute error is: 0.03633325592
+
+
+
+Testing long double:
+Start testing with N = 32
+
+for i = 0 FFT value is: 1.030809402 expected: 1
+absolute error is: 0.03080940231
+
+for i = 2 FFT value is: 1.21808461 expected: 1.216952206
+absolute error is: 0.001132404635
+
+for i = 4 FFT value is: 1.480982376 expected: 1.48097267
+absolute error is: 9.705731777e-06
+
+for i = 6 FFT value is: 1.80201481 expected: 1.802272958
+absolute error is: 0.0002581477377
+
+for i = 8 FFT value is: 2.192897494 expected: 2.193280051
+absolute error is: 0.0003825562564
+
+for i = 10 FFT value is: 2.66864267 expected: 2.669116995
+absolute error is: 0.0004743248925
+
+for i = 12 FFT value is: 3.247620836 expected: 3.248187814
+absolute error is: 0.0005669778955
+
+for i = 14 FFT value is: 3.95221038 expected: 3.952889324
+absolute error is: 0.0006789439004
+
+for i = 16 FFT value is: 4.809648757 expected: 4.810477381
+absolute error is: 0.0008286238788
+
+for i = 18 FFT value is: 5.853077982 expected: 5.854121058
+absolute error is: 0.00104307602
+
+for i = 20 FFT value is: 7.122814813 expected: 7.124185533
+absolute error is: 0.001370720353
+
+for i = 22 FFT value is: 8.667882872 expected: 8.669793297
+absolute error is: 0.001910425557
+
+for i = 24 FFT value is: 10.54782997 expected: 10.55072407
+absolute error is: 0.002894108168
+
+for i = 26 FFT value is: 12.83474895 expected: 12.83972693
+absolute error is: 0.004977976814
+
+for i = 28 FFT value is: 15.61468212 expected: 15.62533401
+absolute error is: 0.01065188525
+
+for i = 30 FFT value is: 18.97895143 expected: 19.01528468
+absolute error is: 0.03633325592
+
