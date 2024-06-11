@@ -61,7 +61,7 @@ add_executable(get-rho-coefficients
         atmosphere_model/rho_coefficients.cpp)
 
 
-#include_directories(everhart_method)
-#add_executable(evethart
-#        everhart_method/stepper.hpp
-#        everhart_method/determine_satellite_position.cpp)
+include_directories(everhart_method)
+add_executable(evethart
+        everhart_method/stepper.hpp
+        everhart_method/determine_satellite_position.cpp)

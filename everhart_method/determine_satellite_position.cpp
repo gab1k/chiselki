@@ -10,6 +10,7 @@ class RHS_U2 {
 public:
     // r = (x, y, z); |r| = sqrt(x^2+y^2+z^2)
 
+    // sin (phi) = z / |r|
     // U_2(r) = mu/|r| * (1 - J_2 * (R_e/|r|)^2 * (3 * (z/|r|)^2 - 1) / 2 = mu/|r| - (J_2 * mu * R_e^2 * 3 * z^2) / (2 * |r|^5) - (mu * R_e^2) / (2|r|^3)
 
     // d/dx mu/|r| = (-mu * x) / pow(x^2+y^2+z^2, 3/2)
@@ -74,18 +75,16 @@ private:
     std::ofstream ofs;
 
 public:
-    explicit ObserverPoints(const std::string &filePath = "../everhart_method/points.txt") : ofs(filePath.c_str(),
-                                                                                                 std::ios_base::out) {
-        ofs << "[";
+    explicit ObserverPoints(const std::string &filePath = "../everhart_method/logs/points.txt") : ofs(filePath.c_str(),
+                                                                                                      std::ios_base::out) {
     }
 
     bool operator()(double a_curr_t, int a_n, std::vector<double> &a_curr_y) {
         if (a_curr_t >= 31000000) {
-            ofs << "]";
             ofs.close();
             return false; // one year
         }
-        ofs << "(" << a_curr_y[1] << ", " << a_curr_y[2] << ", " << a_curr_y[3] << "),\n"; // (x, y, z)
+        ofs << a_curr_y[1] << ", " << a_curr_y[2] << ", " << a_curr_y[3] << ",\n"; // x, y, z,
         return true;
     }
 };
@@ -99,6 +98,6 @@ int main() {
     // a = 7500 km (point start is (0, 0, 7500))
     // speed start is (sqrt(mu/a),
     std::vector<double> end(7), start{0, 0, 0, a, pow(MU / a, 0.5), 0, 0};
-    integrator(0, start, 310000, end);
+    integrator(0, start, 3100, end);
     std::cout << end[0] << "\n";
 }
